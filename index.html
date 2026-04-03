@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="description" content="Criamos sites profissionais para médicos, dentistas, biomédicos e esteticistas. Design exclusivo, entrega em 7 dias."/>
+<title>Vitta Agency — Sites para Saúde e Estética</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+/* ─────────────────────────────────────────
+   RESET + TOKENS
+───────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+
+:root{
+  --bg:   #FAF8F4;
+  --s1:   #F2EDE2;
+  --s2:   #EAE4D8;
+  --card: #FFFFFF;
+  --b:    #C49A3C;
+  --b2:   #A8832E;
+  --bgl:  rgba(196,154,60,.10);
+  --bgb:  rgba(196,154,60,.24);
+  --bgw:  rgba(196,154,60,.38);
+  --w:    #1A1208;
+  --t1:   rgba(26,18,8,.88);
+  --t2:   rgba(26,18,8,.52);
+  --t3:   rgba(26,18,8,.32);
+  --br:   rgba(26,18,8,.08);
+}
+
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);color:var(--t1);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  line-height:1.6;
+}
+
+/* ─────────────────────────────────────────
+   LAYOUT HELPERS
+───────────────────────────────────────── */
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 18px}
+@media(min-width:600px){.wrap{padding:0 28px}}
+@media(min-width:1024px){.wrap{padding:0 40px}}
+
+/* ─────────────────────────────────────────
+   REVEAL
+───────────────────────────────────────── */
+.rv{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
+.rv.v{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.18s}.d3{transition-delay:.26s}
+.d4{transition-delay:.34s}.d5{transition-delay:.42s}.d6{transition-delay:.50s}
+
+/* ─────────────────────────────────────────
+   SHARED COMPONENTS
+───────────────────────────────────────── */
+/* Tag pill */
+.tag{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--bgl);border:1px solid var(--bgb);
+  color:var(--b);padding:5px 14px;border-radius:50px;
+  font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;
+}
+.tag .dot{width:5px;height:5px;border-radius:50%;background:var(--b);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:14px 26px;border-radius:50px;
+  font-weight:600;font-size:14px;font-family:'Inter',sans-serif;
+  text-decoration:none;transition:.25s;white-space:nowrap;
+  border:none;cursor:pointer;
+}
+.btn-p{background:var(--b);color:#fff}
+.btn-p:hover{background:var(--b2);transform:translateY(-2px);box-shadow:0 12px 36px var(--bgw)}
+.btn-o{background:transparent;color:var(--t1);border:1.5px solid var(--br)}
+.btn-o:hover{border-color:rgba(26,18,8,.35);color:var(--w)}
+.btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+
+/* Section header */
+.sh{margin-bottom:28px}
+@media(min-width:768px){.sh{margin-bottom:48px}}
+.sh .tag{margin-bottom:14px}
+.sh h2{
+  font-size:clamp(26px,4.5vw,46px);
+  font-weight:800;line-height:1.1;letter-spacing:-1px;
+  color:var(--w);margin-top:12px;margin-bottom:12px;
+}
+.sh p{font-size:clamp(14px,1.6vw,16px);color:var(--t2);line-height:1.85;max-width:500px}
+.sh.c{text-align:center}.sh.c p{margin:0 auto}
+
+/* Divider */
+.divider{height:1px;background:var(--br)}
+
+/* ─────────────────────────────────────────
+   NAV
+───────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:64px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 18px;transition:.3s;
+}
+@media(min-width:600px){nav{padding:0 28px}}
+nav.s{background:rgba(250,248,244,.96);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-bottom:1px solid var(--br)}
+.nav-logo{display:flex;align-items:center;text-decoration:none;flex-shrink:0}
+.nav-logo img{height:34px;width:auto;display:block;object-fit:contain;max-width:160px}
+.nav-links{display:none}
+@media(min-width:900px){
+  .nav-links{display:flex;list-style:none;gap:28px}
+  .nav-links a{color:var(--t2);text-decoration:none;font-size:13px;font-weight:500;transition:.2s}
+  .nav-links a:hover{color:#fff}
+}
+.nav-btn{display:none}
+@media(min-width:900px){
+  .nav-btn{
+    display:inline-flex;align-items:center;
+    background:var(--b);color:#fff;
+    padding:9px 22px;border-radius:50px;
+    font-size:13px;font-weight:600;text-decoration:none;transition:.25s;
+  }
+  .nav-btn:hover{background:var(--b2);box-shadow:0 6px 22px var(--bgw)}
+}
+/* Hamburger */
+.ham{
+  display:flex;flex-direction:column;justify-content:center;gap:5px;
+  width:40px;height:40px;cursor:pointer;border:none;background:none;padding:8px;
+}
+@media(min-width:900px){.ham{display:none}}
+.ham span{display:block;width:22px;height:2px;background:var(--w);border-radius:2px;transition:.3s}
+.ham.o span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.ham.o span:nth-child(2){opacity:0;transform:scaleX(0)}
+.ham.o span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+/* Drawer */
+.drawer{
+  display:none;position:fixed;inset:0;z-index:205;
+  flex-direction:column;align-items:center;justify-content:center;gap:32px;
+  background:rgba(250,248,244,.98);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);
+}
+.drawer.o{display:flex}
+.drawer a{color:var(--t1);font-size:24px;font-weight:700;text-decoration:none;transition:.2s}
+.drawer a:hover{color:var(--b)}
+.drawer .d-btn{
+  margin-top:8px;background:var(--b);color:#fff;
+  padding:14px 40px;border-radius:50px;font-size:18px;
+}
+
+/* ─────────────────────────────────────────
+   HERO
+───────────────────────────────────────── */
+.hero{
+  position:relative;overflow:hidden;
+  padding:96px 0 0;
+  background:var(--bg);
+}
+.hero::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%,rgba(196,154,60,.12) 0%,transparent 60%);
+}
+.hero::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(26,18,8,.06) 1px,transparent 1px);
+  background-size:26px 26px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 20%,black,transparent);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 20%,black,transparent);
+}
+
+/* ── text block: centered, full width ── */
+.hero-text{
+  position:relative;z-index:1;
+  text-align:center;
+  max-width:780px;
+  margin:0 auto;
+  padding:48px 0 52px;
+}
+.hero-tag{margin-bottom:20px;justify-content:center}
+.hero-h1{
+  font-size:clamp(34px,7vw,78px);
+  font-weight:900;line-height:1.0;letter-spacing:-2px;
+  color:var(--w);margin-bottom:18px;
+}
+.hero-h1 em{
+  font-style:normal;
+  background:linear-gradient(130deg,#E8C56A 0%,#C49A3C 50%,#A8832E 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-p{
+  font-size:clamp(14px,1.8vw,17px);color:var(--t2);line-height:1.9;
+  margin:0 auto 28px;max-width:520px;
+}
+.hero-btns{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:32px}
+.hero-proof{
+  display:inline-flex;align-items:center;gap:14px;
+  padding:14px 20px;
+  background:rgba(26,18,8,.04);
+  border:1px solid var(--br);border-radius:50px;
+}
+.proof-avs{display:flex}
+.proof-avs img{
+  width:28px;height:28px;border-radius:50%;object-fit:cover;
+  border:2px solid var(--bg);margin-left:-7px;filter:none;
+}
+.proof-avs img:first-child{margin-left:0}
+.proof-txt{display:flex;align-items:center;gap:8px}
+.proof-txt .stars{color:#F59E0B;font-size:11px;letter-spacing:1px}
+.proof-txt span{font-size:12px;color:var(--t2)}
+
+/* ── portfolio strip at bottom of hero ── */
+.hero-strip{
+  position:relative;z-index:1;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  padding:0 0 0;
+}
+@media(min-width:640px){.hero-strip{grid-template-columns:repeat(3,1fr);gap:14px}}
+
+.hs-card{
+  position:relative;overflow:hidden;
+  border-radius:16px 16px 0 0;
+  border:1px solid var(--br);border-bottom:none;
+  background:var(--card);
+  aspect-ratio:4/3;
+  transition:.45s;
+}
+.hs-card:hover img{transform:scale(1.05)}
+.hs-card img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:.45s;
+}
+.hs-card-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:28px 14px 14px;
+  background:linear-gradient(to top,rgba(10,8,4,.85) 0%,transparent 100%);
+}
+.hs-card-label .pi-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--b);margin-bottom:2px}
+.hs-card-label .pi-name{font-size:12px;font-weight:600;color:#fff}
+
+/* ─────────────────────────────────────────
+   MARQUEE
+───────────────────────────────────────── */
+.mq{
+  padding:14px 0;overflow:hidden;
+  border-top:1px solid var(--br);border-bottom:1px solid var(--br);
+  background:var(--s1);
+}
+.mq-track{display:flex;gap:40px;width:max-content;animation:mqroll 30s linear infinite}
+.mq-track:hover{animation-play-state:paused}
+.mq-item{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:600;color:var(--t3);letter-spacing:1px;text-transform:uppercase;white-space:nowrap}
+.mq-item .d{width:3px;height:3px;border-radius:50%;background:var(--b);opacity:.7}
+@keyframes mqroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ─────────────────────────────────────────
+   STATS
+───────────────────────────────────────── */
+.stats{background:var(--s1);padding:0}
+.stats-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:1px;background:var(--br);
+  border-top:1px solid var(--br);border-bottom:1px solid var(--br);
+}
+@media(min-width:640px){.stats-grid{grid-template-columns:repeat(4,1fr)}}
+.stat{background:var(--s2);padding:28px 16px;text-align:center}
+@media(min-width:640px){.stat{padding:36px 20px}}
+.stat:hover{background:rgba(196,154,60,.06)}
+.stat-v{font-size:clamp(28px,5vw,46px);font-weight:900;color:var(--w);line-height:1;margin-bottom:6px;letter-spacing:-1px}
+.stat-v em{font-style:normal;color:var(--b)}
+.stat-l{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.8px}
+
+/* ─────────────────────────────────────────
+   FEATURES
+───────────────────────────────────────── */
+.features{padding:48px 0}
+@media(min-width:768px){.features{padding:80px 0}}
+.feat-grid{
+  display:grid;grid-template-columns:1fr;
+  gap:1px;background:var(--br);
+  border:1px solid var(--br);border-radius:20px;overflow:hidden;
+}
+@media(min-width:560px){.feat-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1000px){.feat-grid{grid-template-columns:repeat(3,1fr)}}
+.fc{background:var(--card);padding:20px 18px;transition:.3s}
+@media(min-width:640px){.fc{padding:28px 24px}}
+.fc:hover{background:rgba(14,14,28,.98)}
+.fc:hover .fc-ic{background:var(--b);border-color:var(--b)}
+.fc:hover .fc-ic svg{stroke:#fff}
+.fc-num{font-size:11px;font-weight:700;color:var(--b);opacity:.55;letter-spacing:1px;text-transform:uppercase;margin-bottom:14px}
+.fc-ic{
+  width:42px;height:42px;border-radius:11px;
+  background:var(--bgl);border:1px solid var(--bgb);
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;transition:.3s;
+}
+.fc-ic svg{width:19px;height:19px;stroke:var(--b);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:.3s}
+.fc h3{font-size:15px;font-weight:700;color:var(--w);margin-bottom:8px}
+.fc p{font-size:13px;color:var(--t2);line-height:1.8}
+
+/* ─────────────────────────────────────────
+   PORTFOLIO
+───────────────────────────────────────── */
+.portfolio{background:var(--s1);padding:48px 0}
+@media(min-width:768px){.portfolio{padding:80px 0}}
+.port-head{
+  display:flex;flex-direction:column;gap:12px;margin-bottom:28px;
+}
+@media(min-width:640px){.port-head{flex-direction:row;align-items:flex-end;justify-content:space-between;margin-bottom:36px}}
+.port-head .sh{margin-bottom:0}
+.port-all{
+  font-size:13px;font-weight:600;color:var(--b);
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  white-space:nowrap;transition:.2s;
+}
+.port-all:hover{gap:10px}
+.port-all svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round}
+
+/* Portfolio grid — mobile: 1 col; tablet: 2 col; desktop: bento */
+.port-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:560px){.port-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:900px){
+  .port-grid{
+    grid-template-columns:repeat(3,1fr);
+    grid-auto-rows:200px;
+  }
+  .pi-big{grid-column:1/3;grid-row:1/3}
+  .pi-tall{grid-row:1/3}
+}
+.pi{
+  position:relative;overflow:hidden;
+  border-radius:16px;border:1px solid var(--br);
+  background:var(--card);cursor:pointer;
+  /* Fixed aspect ratio on mobile so images never clip text */
+}
+/* Use aspect-ratio only on mobile & tablet */
+.pi{aspect-ratio:16/9}
+@media(min-width:900px){.pi{aspect-ratio:auto}}
+.pi img{
+  position:absolute;inset:0;
+  width:100%;height:100%;object-fit:cover;
+  transition:.5s;display:block;
+}
+.pi:hover img{transform:scale(1.06)}
+.pi-label{
+  position:absolute;bottom:12px;left:12px;right:12px;
+  background:rgba(255,252,245,.90);
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border:1px solid rgba(196,154,60,.18);
+  border-radius:10px;padding:8px 12px;
+}
+.pi-cat{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--b);margin-bottom:2px}
+.pi-name{font-size:13px;font-weight:600;color:var(--w);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ─────────────────────────────────────────
+   ABOUT
+───────────────────────────────────────── */
+.about{padding:48px 0}
+@media(min-width:768px){.about{padding:80px 0}}
+.about-grid{
+  display:grid;grid-template-columns:1fr;
+  gap:36px;align-items:center;
+}
+@media(min-width:900px){.about-grid{grid-template-columns:1fr 1fr;gap:72px}}
+.about-img-wrap{
+  width:100%;border-radius:20px;overflow:hidden;
+  border:1px solid var(--br);
+  box-shadow:0 24px 72px rgba(0,0,0,.5);
+}
+.about-img-wrap img{width:100%;display:block;object-fit:cover;aspect-ratio:4/3}
+@media(min-width:900px){.about-img-wrap img{aspect-ratio:auto;height:420px}}
+.about-body .sh{margin-bottom:20px}
+.about-body p{font-size:clamp(13px,1.4vw,15px);color:var(--t2);line-height:1.9;margin-bottom:14px}
+.about-body .btn{margin-top:8px}
+
+/* ─────────────────────────────────────────
+   PROCESS
+───────────────────────────────────────── */
+.process{background:var(--s1);padding:48px 0}
+@media(min-width:768px){.process{padding:80px 0}}
+.steps{margin-top:24px;display:flex;flex-direction:column}
+.step{
+  display:flex;gap:16px;padding:18px 0;
+  border-bottom:1px solid var(--br);transition:.3s;
+}
+@media(min-width:600px){.step{gap:24px;padding:24px 0}}
+.step:last-child{border-bottom:none}
+.step:hover .sn{background:var(--b);color:#fff;border-color:var(--b)}
+.sn{
+  width:34px;height:34px;min-width:34px;border-radius:50%;
+  border:1px solid var(--br);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;color:var(--t2);transition:.3s;margin-top:2px;
+}
+.step-body h3{font-size:15px;font-weight:700;color:var(--w);margin-bottom:5px}
+.step-body p{font-size:13px;color:var(--t2);line-height:1.8}
+.step-tag{
+  display:inline-block;margin-top:8px;
+  background:var(--bgl);color:var(--b);
+  border:1px solid var(--bgb);
+  padding:2px 10px;border-radius:5px;font-size:10px;font-weight:700;
+}
+
+/* ─────────────────────────────────────────
+   TESTIMONIALS — infinite scroll rows
+───────────────────────────────────────── */
+.testi{padding:48px 0;overflow:hidden}
+@media(min-width:768px){.testi{padding:80px 0}}
+.testi .wrap{margin-bottom:40px}
+.trow{
+  display:flex;gap:14px;
+  width:max-content;
+  padding:6px 0;
+  animation:tscroll 42s linear infinite;
+}
+.trow:hover{animation-play-state:paused}
+.trow-r{animation-direction:reverse;animation-duration:54s}
+@keyframes tscroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tc{
+  width:clamp(260px,80vw,320px);
+  flex-shrink:0;
+  background:var(--card);border:1px solid var(--br);
+  border-radius:18px;padding:22px;transition:.3s;
+}
+.tc:hover{border-color:var(--bgb);transform:translateY(-3px)}
+.tc-stars{font-size:12px;color:#F59E0B;letter-spacing:2px;margin-bottom:12px}
+.tc-q{font-size:13px;color:var(--t2);line-height:1.8;font-style:italic;margin-bottom:18px}
+.tc-a{display:flex;align-items:center;gap:10px}
+.tc-av{width:36px;height:36px;min-width:36px;border-radius:50%;overflow:hidden;border:2px solid var(--br)}
+.tc-av img{width:100%;height:100%;object-fit:cover;display:block}
+.tc-name{font-size:13px;font-weight:600;color:var(--w)}
+.tc-role{font-size:11px;color:var(--t3)}
+
+/* ─────────────────────────────────────────
+   PLANS
+───────────────────────────────────────── */
+.plans{background:var(--s1);padding:48px 0}
+@media(min-width:768px){.plans{padding:80px 0}}
+.plans-grid{
+  display:grid;grid-template-columns:1fr;gap:14px;
+  max-width:400px;margin:0 auto;
+}
+@media(min-width:900px){.plans-grid{grid-template-columns:repeat(3,1fr);max-width:100%;margin:0}}
+.plan{
+  background:var(--card);border:1px solid var(--br);
+  border-radius:24px;padding:24px 20px;
+  position:relative;transition:.35s;
+}
+@media(min-width:600px){.plan{padding:32px 28px}}
+.plan:hover{transform:translateY(-5px);border-color:rgba(196,154,60,.3);box-shadow:0 24px 64px rgba(26,18,8,.1)}
+.plan.hot{
+  background:linear-gradient(145deg,rgba(196,154,60,.13),rgba(196,154,60,.04) 55%,var(--card));
+  border-color:rgba(196,154,60,.55);
+}
+.plan.hot:hover{box-shadow:0 24px 64px rgba(196,154,60,.18)}
+.hot-lbl{
+  position:absolute;top:-12px;left:50%;transform:translateX(-50%);
+  background:var(--b);color:#fff;
+  padding:3px 18px;border-radius:20px;
+  font-size:10px;font-weight:700;white-space:nowrap;letter-spacing:.3px;
+}
+.plan-ic{
+  width:44px;height:44px;border-radius:11px;
+  background:var(--bgl);border:1px solid var(--bgb);
+  display:flex;align-items:center;justify-content:center;margin-bottom:18px;
+}
+.plan-ic svg{width:20px;height:20px;stroke:var(--b);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.plan-tier{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:3px}
+.plan-name{font-size:20px;font-weight:800;color:var(--w);margin-bottom:8px}
+.plan-desc{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:22px}
+.plan-price{padding-bottom:22px;border-bottom:1px solid var(--br);margin-bottom:22px}
+.plan-from{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.plan-val{display:flex;align-items:flex-start;gap:3px;font-weight:900;color:var(--w);line-height:1;letter-spacing:-1px}
+.plan-cur{font-size:16px;margin-top:5px;font-weight:500;color:var(--t2)}
+.plan-num{font-size:40px}
+.plan.hot .plan-val{color:var(--b)}
+.plan-ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.plan-ul li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--t2);line-height:1.5}
+.plan-ul li strong{color:var(--w)}
+.ck{
+  width:17px;height:17px;min-width:17px;border-radius:50%;
+  background:var(--bgl);border:1px solid var(--bgb);
+  display:flex;align-items:center;justify-content:center;margin-top:1px;
+}
+.ck svg{width:8px;height:8px;stroke:var(--b);fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.pbtn{
+  display:block;text-align:center;padding:14px;border-radius:50px;
+  font-weight:600;font-size:14px;text-decoration:none;
+  transition:.3s;border:none;cursor:pointer;font-family:'Inter',sans-serif;width:100%;
+}
+.pb-o{background:transparent;color:var(--t1);border:1.5px solid var(--br)}
+.pb-o:hover{border-color:rgba(196,154,60,.5);color:var(--b)}
+.pb-b{background:var(--b);color:#fff}
+.pb-b:hover{background:var(--b2);box-shadow:0 8px 28px var(--bgw)}
+.plan-result{
+  background:var(--bgl);border:1px solid var(--bgb);
+  border-radius:12px;padding:12px 14px;margin-bottom:22px;
+}
+.plan-result-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--b);margin-bottom:7px}
+.plan-result ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.plan-result ul li{font-size:12px;color:var(--t2);display:flex;align-items:flex-start;gap:7px;line-height:1.45}
+.plan-result ul li::before{content:"→";color:var(--b);font-weight:700;flex-shrink:0;margin-top:1px}
+.plans-social{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  margin-bottom:20px;
+  font-size:13px;font-weight:600;color:var(--t2);
+}
+.plans-social::before,.plans-social::after{
+  content:"";flex:1;height:1px;background:var(--br);max-width:100px;
+}
+.plans-anchor{
+  text-align:center;margin-bottom:36px;
+  font-size:13px;color:var(--b);font-weight:600;letter-spacing:.2px;
+}
+.plans-urgency{
+  margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
+}
+.plans-urgency-alert{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(196,154,60,.10);border:1px solid rgba(196,154,60,.28);
+  border-radius:50px;padding:7px 18px;
+  font-size:12px;font-weight:600;color:var(--b);
+}
+.plans-urgency-alert span{width:7px;height:7px;border-radius:50%;background:var(--b);display:inline-block;animation:blink 2s infinite;flex-shrink:0}
+.plans-note{
+  text-align:center;font-size:12px;color:var(--t2);margin-top:16px;
+  font-weight:500;
+}
+
+/* ─────────────────────────────────────────
+   GUARANTEE
+───────────────────────────────────────── */
+.guarantee{background:var(--s1);padding:48px 0}
+@media(min-width:768px){.guarantee{padding:80px 0}}
+.guar-inner{
+  display:grid;grid-template-columns:1fr;gap:20px;align-items:center;
+  background:linear-gradient(135deg,rgba(196,154,60,.12),rgba(196,154,60,.04) 60%,var(--card));
+  border:1px solid rgba(196,154,60,.3);
+  border-radius:24px;padding:28px 22px;
+}
+@media(min-width:768px){.guar-inner{grid-template-columns:auto 1fr;gap:40px;padding:44px 48px}}
+.guar-icon{
+  width:80px;height:80px;border-radius:50%;
+  background:var(--bgl);border:1px solid var(--bgb);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;margin:0 auto;
+}
+@media(min-width:768px){.guar-icon{margin:0;width:88px;height:88px}}
+.guar-icon svg{width:36px;height:36px;stroke:var(--b);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.guar-text h3{font-size:clamp(20px,3vw,28px);font-weight:800;color:var(--w);margin-bottom:10px}
+.guar-text p{font-size:clamp(13px,1.4vw,15px);color:var(--t2);line-height:1.85}
+
+/* ─────────────────────────────────────────
+   FAQ
+───────────────────────────────────────── */
+.faq{background:var(--bg);padding:48px 0}
+@media(min-width:768px){.faq{padding:80px 0}}
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:0}
+.faq-item{border-bottom:1px solid var(--br)}
+.faq-item:first-child{border-top:1px solid var(--br)}
+.faq-q{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:20px 0;cursor:pointer;
+  font-size:clamp(14px,1.6vw,16px);font-weight:600;color:var(--w);
+  list-style:none;
+  transition:.2s;
+}
+.faq-q::-webkit-details-marker{display:none}
+.faq-q:hover{color:var(--b)}
+.faq-arr{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--bgl);border:1px solid var(--bgb);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:.3s;
+}
+.faq-arr svg{width:13px;height:13px;stroke:var(--b);fill:none;stroke-width:2.5;stroke-linecap:round;transition:.3s}
+details[open] .faq-arr{background:var(--b);border-color:var(--b)}
+details[open] .faq-arr svg{stroke:#fff;transform:rotate(180deg)}
+.faq-a{padding:0 0 20px;font-size:13px;color:var(--t2);line-height:1.85}
+@media(min-width:640px){.faq-q{padding:22px 0}.faq-a{font-size:14px}}
+
+/* ─────────────────────────────────────────
+   CTA
+───────────────────────────────────────── */
+.cta{
+  background:var(--bg);padding:72px 0;
+  text-align:center;position:relative;overflow:hidden;
+}
+@media(min-width:768px){.cta{padding:96px 0}}
+.cta::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(196,154,60,.12) 0%,transparent 65%);
+}
+.cta::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(26,18,8,.055) 1px,transparent 1px);
+  background-size:22px 22px;
+  mask-image:radial-gradient(ellipse 55% 55% at 50% 50%,black,transparent);
+  -webkit-mask-image:radial-gradient(ellipse 55% 55% at 50% 50%,black,transparent);
+}
+.cta-in{position:relative;z-index:1;max-width:580px;margin:0 auto}
+.cta-rocket{display:flex;justify-content:center;margin-bottom:24px}
+.cta-rocket img{
+  height:110px;object-fit:contain;
+  filter:drop-shadow(0 0 40px rgba(196,154,60,.45));
+  animation:fl 5s ease-in-out infinite;
+}
+@media(min-width:640px){.cta-rocket img{height:140px}}
+@keyframes fl{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.cta h2{
+  font-size:clamp(30px,6vw,58px);
+  font-weight:900;color:var(--w);
+  letter-spacing:-1.5px;line-height:1.08;margin-bottom:14px;
+}
+.cta h2 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#E8C56A,#C49A3C);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.cta-p{font-size:clamp(13px,1.6vw,16px);color:var(--t2);margin-bottom:32px;line-height:1.9}
+.cta-btns{
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  justify-content:center;
+}
+@media(min-width:400px){.cta-btns{flex-direction:row;flex-wrap:wrap}}
+.cta-fine{font-size:11px;color:var(--t3);margin-top:14px}
+
+/* ─────────────────────────────────────────
+   FOOTER
+───────────────────────────────────────── */
+footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
+.foot-grid{
+  display:grid;grid-template-columns:1fr;gap:32px;margin-bottom:40px;
+}
+@media(min-width:560px){.foot-grid{grid-template-columns:1fr 1fr;gap:24px}}
+@media(min-width:1024px){.foot-grid{grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:48px}}
+.foot-brand .foot-logo{display:inline-flex;align-items:center;margin-bottom:14px}
+.foot-brand .foot-logo img{height:30px;width:auto;object-fit:contain;max-width:140px;display:block}
+.foot-brand p{font-size:13px;color:var(--t3);line-height:1.8;max-width:230px}
+.foot-col h4{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:14px}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.foot-col ul a,.foot-col p{color:var(--t3);text-decoration:none;font-size:13px;line-height:1.9;transition:.2s}
+.foot-col ul a:hover{color:var(--b)}
+.foot-div{height:1px;background:var(--br);margin-bottom:22px}
+.foot-bottom{
+  display:flex;flex-direction:column;gap:10px;
+  font-size:12px;color:var(--t3);
+}
+@media(min-width:560px){.foot-bottom{flex-direction:row;justify-content:space-between;align-items:center}}
+.foot-pol{display:flex;gap:16px}
+.foot-pol a{color:var(--t3);text-decoration:none;transition:.2s}
+.foot-pol a:hover{color:var(--b)}
+
+/* ─────────────────────────────────────────
+   WHATSAPP FLOAT
+───────────────────────────────────────── */
+.waf{
+  position:fixed;bottom:20px;right:16px;z-index:180;
+  width:50px;height:50px;border-radius:50%;
+  overflow:hidden;text-decoration:none;
+  box-shadow:0 6px 26px rgba(37,211,102,.45);
+  animation:wfl 3.5s ease-in-out infinite;
+}
+@media(min-width:600px){.waf{bottom:28px;right:24px;width:54px;height:54px}}
+.waf:hover{animation:none;transform:scale(1.1)}
+.waf img{width:100%;height:100%;object-fit:cover;display:block}
+@keyframes wfl{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+</style>
+</head>
+<body>
+
+<!-- ═══ NAV ═══ -->
+<nav id="nav">
+  <a href="#topo" class="nav-logo">
+    <img src="logo-vitta.png" alt="Vitta Agency"/>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#como-funciona">Como funciona</a></li>
+    <li><a href="#planos">Planos</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="https://wa.me/5521974911998?text=Olá!%20Quero%20um%20orçamento." class="nav-btn" target="_blank" rel="noopener">Orçamento grátis</a>
+  <button class="ham" id="ham" onclick="openMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="drawer" id="drawer">
+  <a href="#portfolio"     onclick="closeMenu()">Portfólio</a>
+  <a href="#sobre"         onclick="closeMenu()">Sobre</a>
+  <a href="#como-funciona" onclick="closeMenu()">Como funciona</a>
+  <a href="#planos"        onclick="closeMenu()">Planos</a>
+  <a href="#faq"           onclick="closeMenu()">FAQ</a>
+  <a href="https://wa.me/5521974911998" class="d-btn" onclick="closeMenu()" target="_blank" rel="noopener">Orçamento grátis</a>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<section id="topo" style="padding:0">
+  <div class="hero">
+    <div class="wrap">
+      <div class="hero-text">
+        <div class="tag hero-tag rv"><div class="dot"></div>Sites para saúde &amp; estética</div>
+        <h1 class="hero-h1 rv d1">Você está perdendo pacientes todos os dias <em>sem um site profissional.</em></h1>
+        <p class="hero-p rv d2">Enquanto você atende, seu site trabalha por você — atraindo pacientes do Google e transformando visitas em consultas.</p>
+        <div class="hero-btns rv d3">
+          <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Quero%20atrair%20mais%20pacientes%20com%20um%20site%20profissional." class="btn btn-p" target="_blank" rel="noopener">
+            Quero atrair mais pacientes
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#portfolio" class="btn btn-o">Ver exemplos reais</a>
+        </div>
+        <div class="hero-proof rv d4">
+          <div class="proof-avs">
+            <img src="depoimento-leo.webp" alt=""/>
+            <img src="depoimento-maria-luiza.webp" alt=""/>
+            <img src="depoimento-rodrigo.webp" alt=""/>
+            <img src="depoimento-murilo.webp" alt=""/>
+          </div>
+          <div class="proof-txt">
+            <span class="stars">★★★★★</span>
+            <span>+50 clínicas atendidas · Sites entregues em até 48h</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- strip de sites logo abaixo do texto, visível no mobile -->
+    <div class="wrap" style="padding-top:0">
+      <div class="hero-strip rv d4">
+        <div class="hs-card">
+          <img src="portfolio-dra-carolina.webp" alt="Dra. Carolina"/>
+          <div class="hs-card-label">
+            <div class="pi-cat">Oftalmologia</div>
+            <div class="pi-name">Dra. Carolina</div>
+          </div>
+        </div>
+        <div class="hs-card">
+          <img src="portfolio-dr-alan.webp" alt="Dr. Alan"/>
+          <div class="hs-card-label">
+            <div class="pi-cat">Med. Estética</div>
+            <div class="pi-name">Dr. Alan Mozella</div>
+          </div>
+        </div>
+        <div class="hs-card">
+          <img src="portfolio-studio-mila.webp" alt="Studio Mila"/>
+          <div class="hs-card-label">
+            <div class="pi-cat">Estética</div>
+            <div class="pi-name">Studio Mila</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══ MARQUEE ═══ -->
+<div class="mq">
+  <div class="mq-track">
+    <div class="mq-item"><div class="d"></div>Medicina Estética</div>
+    <div class="mq-item"><div class="d"></div>Odontologia</div>
+    <div class="mq-item"><div class="d"></div>Biomédica</div>
+    <div class="mq-item"><div class="d"></div>Dermatologia</div>
+    <div class="mq-item"><div class="d"></div>Ortodontia</div>
+    <div class="mq-item"><div class="d"></div>Psicologia</div>
+    <div class="mq-item"><div class="d"></div>Fisioterapia</div>
+    <div class="mq-item"><div class="d"></div>Nutrição</div>
+    <div class="mq-item"><div class="d"></div>Oftalmologia</div>
+    <div class="mq-item"><div class="d"></div>Ginecologia</div>
+    <div class="mq-item"><div class="d"></div>Ortopedia</div>
+    <div class="mq-item"><div class="d"></div>Medicina Estética</div>
+    <div class="mq-item"><div class="d"></div>Odontologia</div>
+    <div class="mq-item"><div class="d"></div>Biomédica</div>
+    <div class="mq-item"><div class="d"></div>Dermatologia</div>
+    <div class="mq-item"><div class="d"></div>Ortodontia</div>
+    <div class="mq-item"><div class="d"></div>Psicologia</div>
+    <div class="mq-item"><div class="d"></div>Fisioterapia</div>
+    <div class="mq-item"><div class="d"></div>Nutrição</div>
+    <div class="mq-item"><div class="d"></div>Oftalmologia</div>
+    <div class="mq-item"><div class="d"></div>Ginecologia</div>
+    <div class="mq-item"><div class="d"></div>Ortopedia</div>
+  </div>
+</div>
+
+<!-- ═══ STATS ═══ -->
+<div class="stats">
+  <div class="stats-grid">
+    <div class="stat"><div class="stat-v rv" data-t="50" data-s="+">0</div><div class="stat-l">Clínicas atendidas</div></div>
+    <div class="stat"><div class="stat-v rv" data-t="48" data-s="h">0</div><div class="stat-l">Site pronto</div></div>
+    <div class="stat"><div class="stat-v rv" data-t="312" data-s="%">0</div><div class="stat-l">Mais agendamentos</div></div>
+    <div class="stat"><div class="stat-v rv" data-t="100" data-s="%">0</div><div class="stat-l">Satisfação garantida</div></div>
+  </div>
+</div>
+
+<!-- ═══ FEATURES ═══ -->
+<section class="features" id="diferenciais">
+  <div class="wrap">
+    <div class="sh rv">
+      <div class="tag"><div class="dot"></div>Por que nos escolher</div>
+      <h2>Por que clínicas escolhem a Vitta Agency.</h2>
+      <p>Cada detalhe é pensado para transformar visitantes em pacientes.</p>
+    </div>
+    <div class="feat-grid">
+      <div class="fc rv d1">
+        <div class="fc-num">01</div>
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
+        <h3>Seja encontrado no Google</h3>
+        <p>Seu site aparece quando alguém pesquisa <strong>"médico em [sua cidade]"</strong> — sem pagar anúncios todo mês.</p>
+      </div>
+      <div class="fc rv d2">
+        <div class="fc-num">02</div>
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <h3>Um site que faz o paciente escolher você</h3>
+        <p>Design exclusivo, criado do zero. Transmite credibilidade desde o primeiro segundo — sem templates genéricos.</p>
+      </div>
+      <div class="fc rv d3">
+        <div class="fc-num">03</div>
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+        <h3>Impecável no celular</h3>
+        <p><strong>80% dos pacientes pesquisam pelo smartphone.</strong> Seu site funciona perfeitamente em qualquer tela.</p>
+      </div>
+      <div class="fc rv d4">
+        <div class="fc-num">04</div>
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Rápido o suficiente para não perder pacientes</h3>
+        <p>Sites lentos fazem o visitante fechar e ir para o concorrente. O seu carrega em menos de 2 segundos.</p>
+      </div>
+      <div class="fc rv d5">
+        <div class="fc-num">05</div>
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="16" y1="2" x2="16" y2="6"/></svg></div>
+        <h3>Agenda lotando enquanto você atende</h3>
+        <p>Pacientes marcam consultas 24h pelo site sem precisar ligar. Sua agenda cresce no automático.</p>
+      </div>
+      <div class="fc rv d6">
+        <div class="fc-num">06</div>
+        <div class="fc-ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <h3>Suporte direto, sem burocracia</h3>
+        <p>Precisa ajustar algo? Respondemos rápido pelo WhatsApp. Sem fila, sem chamado técnico.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PORTFOLIO ═══ -->
+<section class="portfolio" id="portfolio">
+  <div class="wrap">
+    <div class="port-head">
+      <div class="sh rv" style="margin-bottom:0">
+        <div class="tag"><div class="dot"></div>Portfólio</div>
+        <h2>Veja como transformamos clínicas em máquinas de atrair pacientes</h2>
+      </div>
+      <a href="https://wa.me/5521974911998" class="port-all rv" target="_blank" rel="noopener">
+        Ver todos
+        <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="port-grid">
+      <div class="pi pi-big rv">
+        <img src="portfolio-dra-carolina.webp" alt="Dra. Carolina"/>
+        <div class="pi-label"><div class="pi-cat">Oftalmologia</div><div class="pi-name">Dra. Carolina Gracitelli</div></div>
+      </div>
+      <div class="pi pi-tall rv d2">
+        <img src="portfolio-dr-alan.webp" alt="Dr. Alan"/>
+        <div class="pi-label"><div class="pi-cat">Medicina Estética</div><div class="pi-name">Dr. Alan Mozella</div></div>
+      </div>
+      <div class="pi rv d3">
+        <img src="portfolio-studio-mila.webp" alt="Studio Mila"/>
+        <div class="pi-label"><div class="pi-cat">Estética</div><div class="pi-name">Studio Mila</div></div>
+      </div>
+      <div class="pi rv d4">
+        <img src="portfolio-quirocamp.webp" alt="Quirocamp"/>
+        <div class="pi-label"><div class="pi-cat">Quiropraxia</div><div class="pi-name">Quirocamp</div></div>
+      </div>
+      <div class="pi rv d5">
+        <img src="portfolio-sucupira.webp" alt="Sucupira"/>
+        <div class="pi-label"><div class="pi-cat">Clínica Médica</div><div class="pi-name">Sucupira</div></div>
+      </div>
+      <div class="pi rv d6">
+        <img src="portfolio-cironak.webp" alt="Cironak"/>
+        <div class="pi-label"><div class="pi-cat">Ortopedia</div><div class="pi-name">Cironak</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT ═══ -->
+<section class="about" id="sobre">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="rv">
+        <div class="about-img-wrap">
+          <img src="foto-escritorio.png" alt="Escritório Vitta Agency"/>
+        </div>
+      </div>
+      <div class="about-body">
+        <div class="sh rv">
+          <div class="tag"><div class="dot"></div>Sobre a Vitta Agency</div>
+          <h2>Uma equipe dedicada a lotar a agenda da sua clínica.</h2>
+        </div>
+        <p class="rv d1">Meu nome é <strong>Luis Machado</strong> e criei a Vitta Agency com um objetivo: ajudar profissionais da saúde a lotarem suas agendas com um site estratégico. Percebi que a maioria dos profissionais perde pacientes todo dia por não ter uma presença digital profissional — e decidi mudar isso.</p>
+        <p class="rv d2">Hoje temos uma equipe especializada em design, desenvolvimento, SEO e estratégia digital — focada 100% no setor de saúde e estética. Sabemos o que transmite credibilidade para o paciente e o que converte visita em consulta agendada.</p>
+        <div class="rv d3" style="display:flex;gap:32px;padding:20px 0;border-top:1px solid var(--br);border-bottom:1px solid var(--br);margin:8px 0 20px">
+          <div><div style="font-size:22px;font-weight:800;color:var(--w)">+50</div><div style="font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px">Clínicas atendidas</div></div>
+          <div><div style="font-size:22px;font-weight:800;color:var(--w)">100%</div><div style="font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px">Satisfação</div></div>
+          <div><div style="font-size:22px;font-weight:800;color:var(--w)">7 dias</div><div style="font-size:11px;color:var(--t3);text-transform:uppercase;letter-spacing:.6px">Prazo de entrega</div></div>
+        </div>
+        <a href="https://wa.me/5521974911998?text=Olá!%20Quero%20saber%20mais%20sobre%20a%20Vitta%20Agency." class="btn btn-p rv d4" target="_blank" rel="noopener" style="width:fit-content">
+          Falar com a equipe
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PROCESS ═══ -->
+<section class="process" id="como-funciona">
+  <div class="wrap">
+    <div class="sh c rv">
+      <div class="tag"><div class="dot"></div>Como funciona</div>
+      <h2>Seu site pronto em até 48 horas.</h2>
+      <p>Você só precisa enviar as informações. <strong>Nós cuidamos de tudo.</strong></p>
+    </div>
+    <div class="steps">
+      <div class="step rv">
+        <div class="sn">01</div>
+        <div class="step-body">
+          <h3>Bate-papo inicial</h3>
+          <p>Você nos conta sobre a clínica, os serviços e o que gosta em outros sites. Rápido, pelo WhatsApp.</p>
+          <div class="step-tag">Grátis e sem compromisso</div>
+        </div>
+      </div>
+      <div class="step rv d1">
+        <div class="sn">02</div>
+        <div class="step-body">
+          <h3>Proposta personalizada</h3>
+          <p>Em até 24h você recebe a proposta com layout, funcionalidades e investimento exato — sem surpresas.</p>
+          <div class="step-tag">Resposta em 24h</div>
+        </div>
+      </div>
+      <div class="step rv d2">
+        <div class="sn">03</div>
+        <div class="step-body">
+          <h3>Criação e aprovação</h3>
+          <p>Desenvolvemos o site e enviamos para você aprovar. Revisões inclusas até ficar como imaginou.</p>
+          <div class="step-tag">Revisões inclusas</div>
+        </div>
+      </div>
+      <div class="step rv d3">
+        <div class="sn">04</div>
+        <div class="step-body">
+          <h3>Publicação e suporte</h3>
+          <p>Site no ar, domínio configurado e você recebendo novos pacientes. Suporte incluso por até 90 dias.</p>
+          <div class="step-tag">Suporte garantido</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="testi" id="depoimentos">
+  <div class="wrap">
+    <div class="sh c rv">
+      <div class="tag"><div class="dot"></div>Depoimentos</div>
+      <h2>Profissionais que já estão atraindo mais pacientes</h2>
+      <p>Mais de 50 clínicas já transformaram sua presença digital com a Vitta Agency.</p>
+    </div>
+  </div>
+  <div class="trow">
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Desde que o site ficou pronto, <strong>minha agenda encheu.</strong> Os pacientes chegam dizendo que me encontraram no Google."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-leo.webp" alt=""/></div><div><div class="tc-name">Dr. Leonardo Ferreira</div><div class="tc-role">Médico Esteta · SP</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"O site ficou elegante e <strong>transmitindo credibilidade.</strong> O agendamento online facilitou muito minha rotina."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-maria-luiza.webp" alt=""/></div><div><div class="tc-name">Dra. Maria Luiza</div><div class="tc-role">Biomédica · Campinas</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Profissionalismo do início ao fim. <strong>Entregaram no prazo prometido.</strong> Recomendo demais para profissionais da saúde."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-rodrigo.webp" alt=""/></div><div><div class="tc-name">Dr. Rodrigo Santos</div><div class="tc-role">Dentista · Ribeirão Preto</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"<strong>Minha clínica cresceu 40%</strong> depois do site novo. Os pacientes percebem a qualidade na hora."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-murilo.webp" alt=""/></div><div><div class="tc-name">Murilo Alves</div><div class="tc-role">Esteticista · Goiânia</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Atendimento humanizado, site entregue em 6 dias. <strong>Qualidade impressionante.</strong> Já indiquei para três colegas."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-marcelo.webp" alt=""/></div><div><div class="tc-name">Dr. Marcelo Costa</div><div class="tc-role">Dermatologista · BH</div></div></div></div>
+    <!-- loop -->
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Desde que o site ficou pronto, <strong>minha agenda encheu.</strong> Os pacientes chegam dizendo que me encontraram no Google."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-leo.webp" alt=""/></div><div><div class="tc-name">Dr. Leonardo Ferreira</div><div class="tc-role">Médico Esteta · SP</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"O site ficou elegante e <strong>transmitindo credibilidade.</strong> O agendamento online facilitou muito minha rotina."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-maria-luiza.webp" alt=""/></div><div><div class="tc-name">Dra. Maria Luiza</div><div class="tc-role">Biomédica · Campinas</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Profissionalismo do início ao fim. <strong>Entregaram no prazo prometido.</strong> Recomendo demais para profissionais da saúde."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-rodrigo.webp" alt=""/></div><div><div class="tc-name">Dr. Rodrigo Santos</div><div class="tc-role">Dentista · Ribeirão Preto</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"<strong>Minha clínica cresceu 40%</strong> depois do site novo. Os pacientes percebem a qualidade na hora."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-murilo.webp" alt=""/></div><div><div class="tc-name">Murilo Alves</div><div class="tc-role">Esteticista · Goiânia</div></div></div></div>
+    <div class="tc"><div class="tc-stars">★★★★★</div><p class="tc-q">"Atendimento humanizado, site entregue em 6 dias. <strong>Qualidade impressionante.</strong> Já indiquei para três colegas."</p><div class="tc-a"><div class="tc-av"><img src="depoimento-marcelo.webp" alt=""/></div><div><div class="tc-name">Dr. Marcelo Costa</div><div class="tc-role">Dermatologista · BH</div></div></div></div>
+  </div>
+</section>
+
+<!-- ═══ PLANS ═══ -->
+<section class="plans" id="planos">
+  <div class="wrap">
+    <div class="sh c rv">
+      <div class="tag"><div class="dot"></div>Planos e investimento</div>
+      <h2>Escolha o nível de crescimento da sua clínica.</h2>
+      <p>Sites que transformam visitas em consultas.</p>
+    </div>
+    <div class="plans-anchor rv">Um único paciente pode pagar todo o investimento no seu site.</div>
+    <div class="plans-grid">
+
+      <!-- PLANO 1 -->
+      <div class="plan rv">
+        <div class="plan-ic">
+          <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        </div>
+        <div class="plan-tier">Para começar</div>
+        <div class="plan-name">Presença Digital</div>
+        <div class="plan-desc">Ideal para profissionais que estão começando e precisam de uma presença online que gere credibilidade e primeiros contatos.</div>
+        <div class="plan-price">
+          <div class="plan-from">Investimento único</div>
+          <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">497</span></div>
+        </div>
+        <ul class="plan-ul">
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Landing page profissional (1 página)</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Design moderno — celular e computador</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Botão de WhatsApp integrado</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Google Maps integrado</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Página pronta para tráfego pago</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Entrega rápida</li>
+        </ul>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2APresen%C3%A7a%20Digital%2A%20(R%24%20497).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero começar agora</a>
+      </div>
+
+      <!-- PLANO 2 — DESTAQUE -->
+      <div class="plan hot rv d2">
+        <div class="hot-lbl">Mais escolhido</div>
+        <div class="plan-ic">
+          <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.1L22 9.3l-5 4.9 1.2 6.8L12 17.8l-6.2 3.2L7 14.2 2 9.3l7.1-1.2z"/></svg>
+        </div>
+        <div class="plan-tier">Mais escolhido por clínicas que querem crescer</div>
+        <div class="plan-name">Crescimento</div>
+        <div class="plan-desc">Para profissionais que querem atrair pacientes de forma constante e transformar visitas em contatos reais.</div>
+        <div class="plan-price">
+          <div class="plan-from">Investimento único</div>
+          <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">997</span></div>
+        </div>
+        <ul class="plan-ul">
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Site completo (até 5 páginas)</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Site pensado para transformar visitas em pacientes</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>WhatsApp em pontos estratégicos</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Apareça no Google e seja encontrado por novos pacientes</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Página de serviços e procedimentos</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Seção de depoimentos de pacientes</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Página pronta para tráfego pago</strong></li>
+        </ul>
+        <div class="plan-result">
+          <div class="plan-result-lbl">Resultado esperado</div>
+          <ul>
+            <li>Mais pacientes entrando em contato todos os dias</li>
+            <li>Mais autoridade na sua especialidade</li>
+            <li>Agenda mais previsível</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2ACrescimento%2A%20(R%24%20997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-b" target="_blank" rel="noopener">Quero atrair mais pacientes</a>
+      </div>
+
+      <!-- PLANO 3 -->
+      <div class="plan rv d3">
+        <div class="plan-ic">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="plan-tier">Para escalar</div>
+        <div class="plan-name">Autoridade Digital</div>
+        <div class="plan-desc">Para clínicas que querem lotar a agenda e automatizar o atendimento.</div>
+        <div class="plan-price">
+          <div class="plan-from">Investimento único</div>
+          <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">1.997</span></div>
+        </div>
+        <ul class="plan-ul">
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Tudo do plano Crescimento</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Agendamento online integrado</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Sincronização com Google Agenda</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Formulários inteligentes de captação</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Página pronta para tráfego pago</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Menos tempo respondendo pacientes manualmente</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Otimização avançada para conversão</li>
+        </ul>
+        <div class="plan-result">
+          <div class="plan-result-lbl">Resultado esperado</div>
+          <ul>
+            <li>Agenda mais cheia com menos esforço</li>
+            <li>Menos tempo respondendo pacientes manualmente</li>
+            <li>Mais conversão em consultas</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2AAutoridade%20Digital%2A%20(R%24%201.997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero lotar minha agenda</a>
+      </div>
+
+    </div>
+    <p class="plans-note rv"><span style="color:var(--b);font-weight:700;">Vagas limitadas a 10 projetos por mês.</span> Sem mensalidade · Parcelamos em até 12x · Garantia de 30 dias</p>
+  </div>
+</section>
+
+<!-- ═══ GUARANTEE ═══ -->
+<section class="guarantee">
+  <div class="wrap">
+    <div class="guar-inner rv">
+      <div class="guar-icon">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+      </div>
+      <div class="guar-text">
+        <h3>Garantia de satisfação de 30 dias</h3>
+        <p>Se você receber o site e não ficar satisfeito com o resultado — por qualquer motivo — a gente refaz ou devolve 100% do seu investimento. Sem burocracia, sem perguntas. Você não arrisca nada.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faq" id="faq">
+  <div class="wrap">
+    <div class="sh c rv">
+      <div class="tag"><div class="dot"></div>Dúvidas frequentes</div>
+      <h2>Perguntas que todo mundo faz</h2>
+      <p>Respostas diretas para as dúvidas mais comuns antes de contratar.</p>
+    </div>
+    <div class="faq-list">
+
+      <details class="faq-item rv">
+        <summary class="faq-q">
+          Preciso entender de tecnologia para ter um site?
+          <div class="faq-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </summary>
+        <p class="faq-a">Não. Você não precisa saber absolutamente nada de tecnologia. Nós cuidamos de tudo — da criação ao servidor, domínio e configurações. Você só precisa nos contar sobre a sua clínica e aprovar o resultado.</p>
+      </details>
+
+      <details class="faq-item rv">
+        <summary class="faq-q">
+          Quanto tempo leva para o site ficar pronto?
+          <div class="faq-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </summary>
+        <p class="faq-a">Em média 7 dias úteis após a aprovação da proposta e envio dos materiais (logo, fotos, textos). Projetos com sistema de agendamento ou mais páginas podem levar entre 10 e 14 dias.</p>
+      </details>
+
+      <details class="faq-item rv">
+        <summary class="faq-q">
+          O site fica meu ou tenho que pagar mensalidade?
+          <div class="faq-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </summary>
+        <p class="faq-a">O site é 100% seu. Você paga uma vez e pronto. A hospedagem está inclusa no primeiro ano — depois disso é um valor anual pequeno (em torno de R$150/ano) direto com o servidor, sem nós no meio.</p>
+      </details>
+
+      <details class="faq-item rv">
+        <summary class="faq-q">
+          E se eu precisar alterar algo no site depois?
+          <div class="faq-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </summary>
+        <p class="faq-a">Durante o período de suporte incluso (30 a 90 dias dependendo do plano), todas as alterações são gratuitas. Depois disso, fazemos ajustes por demanda a um custo acessível — ou te ensinamos a fazer você mesmo.</p>
+      </details>
+
+      <details class="faq-item rv">
+        <summary class="faq-q">
+          Meu site vai aparecer no Google?
+          <div class="faq-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </summary>
+        <p class="faq-a">Sim. Todo site que entregamos é otimizado para SEO local — isso significa que quando alguém pesquisar "dentista em [sua cidade]" ou "médico esteta perto de mim", suas chances de aparecer nos resultados são muito maiores. Também configuramos o seu perfil no Google Maps.</p>
+      </details>
+
+      <details class="faq-item rv">
+        <summary class="faq-q">
+          Posso parcelar o investimento?
+          <div class="faq-arr"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </summary>
+        <p class="faq-a">Sim, parcelamos em até 12x no cartão de crédito. Também aceitamos PIX com desconto especial. Entre em contato para verificar as condições disponíveis para o seu plano.</p>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA ═══ -->
+<section class="cta" id="contato">
+  <div class="wrap">
+    <div class="cta-in rv">
+      <div class="cta-rocket"><img src="cta-foguete.webp" alt=""/></div>
+      <h2>Quantos pacientes você pode estar <em>perdendo hoje?</em></h2>
+      <p class="cta-p">Enquanto você não tem um site profissional, outros profissionais estão sendo encontrados no Google no seu lugar. Um bate-papo rápido pelo WhatsApp é suficiente para começar.</p>
+      <div class="cta-btns">
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Quero%20come%C3%A7ar%20agora%20e%20atrair%20mais%20pacientes%20com%20um%20site%20profissional." class="btn btn-p" target="_blank" rel="noopener">
+          Quero começar agora
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="mailto:contato@vittaagency.com.br" class="btn btn-o">Enviar e-mail</a>
+      </div>
+      <p class="cta-fine">Resposta em menos de 1 hora · Segunda a sábado</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-inner">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a href="#topo" class="foot-logo"><img src="logo-vitta.png" alt="Vitta Agency"/></a>
+          <p>Agência especializada em criação de sites para médicos, dentistas, biomédicos e esteticistas em todo o Brasil.</p>
+        </div>
+        <div class="foot-col">
+          <h4>Navegação</h4>
+          <ul>
+            <li><a href="#topo">Início</a></li>
+            <li><a href="#diferenciais">Diferenciais</a></li>
+            <li><a href="#portfolio">Portfólio</a></li>
+            <li><a href="#sobre">Sobre</a></li>
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#depoimentos">Depoimentos</a></li>
+            <li><a href="#planos">Planos</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="foot-col">
+          <h4>Contato</h4>
+          <p>contato@vittaagency.com.br<br><br>(21) 97491-1998<br>WhatsApp disponível<br><br>Atendemos todo o Brasil</p>
+        </div>
+      </div>
+      <div class="foot-div"></div>
+      <div class="foot-bottom">
+        <span>© 2025 Vitta Agency · Todos os direitos reservados.</span>
+        <div class="foot-pol">
+          <a href="#contato">Privacidade</a>
+          <a href="#contato">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp flutuante -->
+<a href="https://wa.me/5521974911998" class="waf" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <img src="whatsapp.webp" alt="WhatsApp"/>
+</a>
+
+<script>
+// Nav scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('s', window.scrollY > 50), {passive:true});
+
+// Menu
+function openMenu(){
+  document.getElementById('ham').classList.add('o');
+  document.getElementById('drawer').classList.add('o');
+  document.body.style.overflow = 'hidden';
+}
+function closeMenu(){
+  document.getElementById('ham').classList.remove('o');
+  document.getElementById('drawer').classList.remove('o');
+  document.body.style.overflow = '';
+}
+
+// Scroll reveal
+const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('v'); ro.unobserve(e.target); }
+  });
+}, {threshold: .08});
+document.querySelectorAll('.rv').forEach(el => ro.observe(el));
+
+// Counter
+const co = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ animCount(e.target); co.unobserve(e.target); }
+  });
+}, {threshold: .4});
+document.querySelectorAll('.stat-v[data-t]').forEach(el => co.observe(el));
+function animCount(el){
+  const target = parseInt(el.dataset.t);
+  const suffix = el.dataset.s || '';
+  const dur = 1600, step = 16;
+  let cur = 0;
+  const inc = target / (dur / step);
+  const timer = setInterval(() => {
+    cur += inc;
+    if(cur >= target){ cur = target; clearInterval(timer); }
+    el.textContent = Math.floor(cur) + suffix;
+  }, step);
+}
+</script>
+</body>
+</html>
