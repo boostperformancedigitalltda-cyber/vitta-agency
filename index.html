@@ -446,10 +446,10 @@ nav.s{background:rgba(250,248,244,.96);backdrop-filter:blur(24px);-webkit-backdr
 @media(min-width:900px){.plans-grid{grid-template-columns:repeat(3,1fr);max-width:100%;margin:0}}
 .plan{
   background:var(--card);border:1px solid var(--br);
-  border-radius:24px;padding:24px 20px;
+  border-radius:24px;padding:20px 16px;
   position:relative;transition:.35s;
 }
-@media(min-width:600px){.plan{padding:32px 28px}}
+@media(min-width:600px){.plan{padding:28px 24px}}
 .plan:hover{transform:translateY(-5px);border-color:rgba(196,154,60,.3);box-shadow:0 24px 64px rgba(26,18,8,.1)}
 .plan.hot{
   background:linear-gradient(145deg,rgba(196,154,60,.13),rgba(196,154,60,.04) 55%,var(--card));
@@ -477,7 +477,7 @@ nav.s{background:rgba(250,248,244,.96);backdrop-filter:blur(24px);-webkit-backdr
 .plan-cur{font-size:16px;margin-top:5px;font-weight:500;color:var(--t2)}
 .plan-num{font-size:40px}
 .plan.hot .plan-val{color:var(--b)}
-.plan-ul{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:26px}
+.plan-ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
 .plan-ul li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--t2);line-height:1.5}
 .plan-ul li strong{color:var(--w)}
 .ck{
@@ -523,6 +523,15 @@ nav.s{background:rgba(250,248,244,.96);backdrop-filter:blur(24px);-webkit-backdr
 .plans-proof strong{color:var(--t1);font-weight:700}
 .pp-dot{width:3px;height:3px;border-radius:50%;background:var(--br);display:inline-block;vertical-align:middle}
 @media(max-width:480px){.pp-dot{display:none}.plans-proof{flex-direction:column;gap:5px}}
+.plans-decide{
+  text-align:center;margin-bottom:24px;
+  font-size:13px;color:var(--t2);font-weight:500;
+}
+.plans-guarantee{
+  text-align:center;margin-top:10px;
+  font-size:11px;color:var(--t3);font-weight:500;letter-spacing:.1px;
+}
+.plans-guarantee strong{color:var(--t2);font-weight:600}
 .plans-urgency{
   margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
 }
@@ -1007,10 +1016,11 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
     <div class="plans-proof rv">
       <span><strong>+50</strong> clínicas atendidas</span>
       <span class="pp-dot"></span>
-      <span>Entrega em <strong>até 7 dias</strong></span>
+      <span>Site pronto em <strong>até 48 horas</strong></span>
       <span class="pp-dot"></span>
-      <span><strong>Garantia</strong> de 30 dias</span>
+      <span><strong>7 dias</strong> de garantia</span>
     </div>
+    <div class="plans-decide rv">Escolha o plano ideal para o momento da sua clínica.</div>
     <div class="plans-grid">
 
       <!-- PLANO 1 -->
@@ -1018,27 +1028,27 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         <div class="plan-ic">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
-        <div class="plan-tier">Credibilidade online</div>
+        <div class="plan-tier">Ideal para quem ainda não tem site</div>
         <div class="plan-name">Presença Digital</div>
-        <div class="plan-desc">Site profissional que transmite confiança desde o primeiro acesso.</div>
+        <div class="plan-desc">Seu primeiro site profissional — transmite confiança e já gera contato.</div>
         <div class="plan-price">
           <div class="plan-from">Investimento único</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">497</span></div>
         </div>
         <ul class="plan-ul">
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Landing page que passa autoridade</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Site que já transmite credibilidade</li>
           <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Design profissional (celular + computador)</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>WhatsApp com 1 clique</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>WhatsApp com 1 clique direto para você</li>
           <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Seus serviços apresentados com clareza</li>
           <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Pronto para receber anúncios</li>
         </ul>
         <div class="plan-result">
           <div class="plan-result-lbl">Resultado esperado</div>
           <ul>
-            <li>O paciente acessa, confia e entra em contato.</li>
+            <li>Quando o paciente comparar você com outro profissional, ele escolhe você.</li>
           </ul>
         </div>
-        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2APresen%C3%A7a%20Digital%2A%20(R%24%20497).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero um site profissional</a>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2APresen%C3%A7a%20Digital%2A%20(R%24%20497).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero passar mais confiança</a>
       </div>
 
       <!-- PLANO 2 — DESTAQUE -->
@@ -1049,7 +1059,7 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         </div>
         <div class="plan-tier">O preferido de quem quer converter mais</div>
         <div class="plan-name">Site que Converte</div>
-        <div class="plan-desc">Estrutura desenvolvida para transformar visitas em consultas marcadas.</div>
+        <div class="plan-desc">Quando o paciente chega no seu site, ele já sente que quer marcar uma consulta.</div>
         <div class="plan-price">
           <div class="plan-from">Investimento único</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">997</span></div>
@@ -1067,7 +1077,7 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
             <li>Mais visitantes entram em contato. O site trabalha por você.</li>
           </ul>
         </div>
-        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2ASite%20que%20Converte%2A%20(R%24%20997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-b" target="_blank" rel="noopener">Quero um site que converte</a>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2ASite%20que%20Converte%2A%20(R%24%20997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-b" target="_blank" rel="noopener">Quero mais pacientes</a>
       </div>
 
       <!-- PLANO 3 -->
@@ -1075,9 +1085,9 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         <div class="plan-ic">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <div class="plan-tier">Percepção premium</div>
+        <div class="plan-tier">Para ser referência na sua cidade</div>
         <div class="plan-name">Autoridade Digital</div>
-        <div class="plan-desc">Site que posiciona você como referência e faz o paciente chegar pronto para consultar.</div>
+        <div class="plan-desc">Sua clínica sendo vista como a melhor opção na sua especialidade e na sua cidade.</div>
         <div class="plan-price">
           <div class="plan-from">Investimento único</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">1.997</span></div>
@@ -1085,21 +1095,22 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         <ul class="plan-ul">
           <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Tudo do plano Site que Converte</li>
           <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Design premium com identidade visual</strong></li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Página de autoridade (formação + especialidade)</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Página que te posiciona como autoridade</strong></li>
           <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Agendamento online integrado</li>
           <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Otimização máxima para conversão</li>
         </ul>
         <div class="plan-result">
           <div class="plan-result-lbl">Resultado esperado</div>
           <ul>
-            <li>Você passa autoridade máxima. O paciente chega pronto para consultar.</li>
+            <li>Sua clínica vira referência. O paciente escolhe você antes mesmo de ligar.</li>
           </ul>
         </div>
-        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2AAutoridade%20Digital%2A%20(R%24%201.997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero melhorar minha imagem online</a>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2AAutoridade%20Digital%2A%20(R%24%201.997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero me destacar na minha cidade</a>
       </div>
 
     </div>
-    <p class="plans-note rv"><span style="color:var(--b);font-weight:700;">Vagas limitadas a 10 projetos por mês.</span> Sem mensalidade · Parcelamos em até 12x · Garantia de 30 dias</p>
+    <div class="plans-guarantee rv">Risco zero — <strong>7 dias de garantia ou seu dinheiro de volta</strong></div>
+    <p class="plans-note rv"><span style="color:var(--b);font-weight:700;">Vagas limitadas a 10 projetos por mês.</span> Sem mensalidade · Parcelamos em até 12x</p>
   </div>
 </section>
 
