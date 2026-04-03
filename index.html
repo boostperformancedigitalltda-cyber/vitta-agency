@@ -512,9 +512,17 @@ nav.s{background:rgba(250,248,244,.96);backdrop-filter:blur(24px);-webkit-backdr
   content:"";flex:1;height:1px;background:var(--br);max-width:100px;
 }
 .plans-anchor{
-  text-align:center;margin-bottom:36px;
+  text-align:center;margin-bottom:16px;
   font-size:13px;color:var(--b);font-weight:600;letter-spacing:.2px;
 }
+.plans-proof{
+  display:flex;align-items:center;justify-content:center;
+  flex-wrap:wrap;gap:6px 20px;margin-bottom:36px;
+  font-size:12px;color:var(--t3);
+}
+.plans-proof strong{color:var(--t1);font-weight:700}
+.pp-dot{width:3px;height:3px;border-radius:50%;background:var(--br);display:inline-block;vertical-align:middle}
+@media(max-width:480px){.pp-dot{display:none}.plans-proof{flex-direction:column;gap:5px}}
 .plans-urgency{
   margin-top:24px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center;
 }
@@ -992,10 +1000,17 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
   <div class="wrap">
     <div class="sh c rv">
       <div class="tag"><div class="dot"></div>Planos e investimento</div>
-      <h2>Escolha o nível de crescimento da sua clínica.</h2>
-      <p>Sites que transformam visitas em consultas.</p>
+      <h2>O site certo faz o paciente escolher você.</h2>
+      <p>Sites criados para transmitir confiança e converter visitas em consultas.</p>
     </div>
-    <div class="plans-anchor rv">Um único paciente pode pagar todo o investimento no seu site.</div>
+    <div class="plans-anchor rv">Um único paciente já paga o investimento no seu site.</div>
+    <div class="plans-proof rv">
+      <span><strong>+50</strong> clínicas atendidas</span>
+      <span class="pp-dot"></span>
+      <span>Entrega em <strong>até 7 dias</strong></span>
+      <span class="pp-dot"></span>
+      <span><strong>Garantia</strong> de 30 dias</span>
+    </div>
     <div class="plans-grid">
 
       <!-- PLANO 1 -->
@@ -1003,22 +1018,27 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         <div class="plan-ic">
           <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
         </div>
-        <div class="plan-tier">Para começar</div>
+        <div class="plan-tier">Credibilidade online</div>
         <div class="plan-name">Presença Digital</div>
-        <div class="plan-desc">Ideal para profissionais que estão começando e precisam de uma presença online que gere credibilidade e primeiros contatos.</div>
+        <div class="plan-desc">Site profissional que transmite confiança desde o primeiro acesso.</div>
         <div class="plan-price">
           <div class="plan-from">Investimento único</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">497</span></div>
         </div>
         <ul class="plan-ul">
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Landing page profissional (1 página)</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Design moderno — celular e computador</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Botão de WhatsApp integrado</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Google Maps integrado</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Página pronta para tráfego pago</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Entrega rápida</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Landing page que passa autoridade</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Design profissional (celular + computador)</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>WhatsApp com 1 clique</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Seus serviços apresentados com clareza</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Pronto para receber anúncios</li>
         </ul>
-        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2APresen%C3%A7a%20Digital%2A%20(R%24%20497).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero começar agora</a>
+        <div class="plan-result">
+          <div class="plan-result-lbl">Resultado esperado</div>
+          <ul>
+            <li>O paciente acessa, confia e entra em contato.</li>
+          </ul>
+        </div>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2APresen%C3%A7a%20Digital%2A%20(R%24%20497).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero um site profissional</a>
       </div>
 
       <!-- PLANO 2 — DESTAQUE -->
@@ -1027,31 +1047,27 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         <div class="plan-ic">
           <svg viewBox="0 0 24 24"><path d="M12 2l2.9 6.1L22 9.3l-5 4.9 1.2 6.8L12 17.8l-6.2 3.2L7 14.2 2 9.3l7.1-1.2z"/></svg>
         </div>
-        <div class="plan-tier">Mais escolhido por clínicas que querem crescer</div>
-        <div class="plan-name">Crescimento</div>
-        <div class="plan-desc">Para profissionais que querem atrair pacientes de forma constante e transformar visitas em contatos reais.</div>
+        <div class="plan-tier">O preferido de quem quer converter mais</div>
+        <div class="plan-name">Site que Converte</div>
+        <div class="plan-desc">Estrutura desenvolvida para transformar visitas em consultas marcadas.</div>
         <div class="plan-price">
           <div class="plan-from">Investimento único</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">997</span></div>
         </div>
         <ul class="plan-ul">
           <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Site completo (até 5 páginas)</strong></li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Site pensado para transformar visitas em pacientes</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>WhatsApp em pontos estratégicos</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Apareça no Google e seja encontrado por novos pacientes</strong></li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Página de serviços e procedimentos</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Seção de depoimentos de pacientes</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Página pronta para tráfego pago</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Estrutura pensada para gerar contato</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>WhatsApp nos pontos de decisão</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Depoimentos e credenciais em destaque</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Pronto para anúncios e Google</li>
         </ul>
         <div class="plan-result">
           <div class="plan-result-lbl">Resultado esperado</div>
           <ul>
-            <li>Mais pacientes entrando em contato todos os dias</li>
-            <li>Mais autoridade na sua especialidade</li>
-            <li>Agenda mais previsível</li>
+            <li>Mais visitantes entram em contato. O site trabalha por você.</li>
           </ul>
         </div>
-        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2ACrescimento%2A%20(R%24%20997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-b" target="_blank" rel="noopener">Quero atrair mais pacientes</a>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2ASite%20que%20Converte%2A%20(R%24%20997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-b" target="_blank" rel="noopener">Quero um site que converte</a>
       </div>
 
       <!-- PLANO 3 -->
@@ -1059,31 +1075,27 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         <div class="plan-ic">
           <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
         </div>
-        <div class="plan-tier">Para escalar</div>
+        <div class="plan-tier">Percepção premium</div>
         <div class="plan-name">Autoridade Digital</div>
-        <div class="plan-desc">Para clínicas que querem lotar a agenda e automatizar o atendimento.</div>
+        <div class="plan-desc">Site que posiciona você como referência e faz o paciente chegar pronto para consultar.</div>
         <div class="plan-price">
           <div class="plan-from">Investimento único</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">1.997</span></div>
         </div>
         <ul class="plan-ul">
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Tudo do plano Crescimento</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Agendamento online integrado</strong></li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Sincronização com Google Agenda</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Formulários inteligentes de captação</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Página pronta para tráfego pago</strong></li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Menos tempo respondendo pacientes manualmente</li>
-          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Otimização avançada para conversão</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Tudo do plano Site que Converte</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Design premium com identidade visual</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div><strong>Página de autoridade (formação + especialidade)</strong></li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Agendamento online integrado</li>
+          <li><div class="ck"><svg viewBox="0 0 10 10"><polyline points="2 5 4.5 7.5 8.5 2.5"/></svg></div>Otimização máxima para conversão</li>
         </ul>
         <div class="plan-result">
           <div class="plan-result-lbl">Resultado esperado</div>
           <ul>
-            <li>Agenda mais cheia com menos esforço</li>
-            <li>Menos tempo respondendo pacientes manualmente</li>
-            <li>Mais conversão em consultas</li>
+            <li>Você passa autoridade máxima. O paciente chega pronto para consultar.</li>
           </ul>
         </div>
-        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2AAutoridade%20Digital%2A%20(R%24%201.997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero lotar minha agenda</a>
+        <a href="https://wa.me/5521974911998?text=Ol%C3%A1!%20Vi%20o%20site%20da%20Vitta%20Agency%20e%20tenho%20interesse%20no%20plano%20%2AAutoridade%20Digital%2A%20(R%24%201.997).%20Pode%20me%20contar%20mais%20sobre%20como%20funciona%3F" class="pbtn pb-o" target="_blank" rel="noopener">Quero melhorar minha imagem online</a>
       </div>
 
     </div>
