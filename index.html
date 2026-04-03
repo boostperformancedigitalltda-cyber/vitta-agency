@@ -446,16 +446,17 @@ nav.s{background:rgba(250,248,244,.96);backdrop-filter:blur(24px);-webkit-backdr
 @media(min-width:900px){.plans-grid{grid-template-columns:repeat(3,1fr);max-width:100%;margin:0}}
 .plan{
   background:var(--card);border:1px solid var(--br);
-  border-radius:24px;padding:20px 16px;
+  border-radius:24px;padding:18px 14px;
   position:relative;transition:.35s;
 }
 @media(min-width:600px){.plan{padding:28px 24px}}
 .plan:hover{transform:translateY(-5px);border-color:rgba(196,154,60,.3);box-shadow:0 24px 64px rgba(26,18,8,.1)}
 .plan.hot{
   background:linear-gradient(145deg,rgba(196,154,60,.13),rgba(196,154,60,.04) 55%,var(--card));
-  border-color:rgba(196,154,60,.55);
+  border-color:rgba(196,154,60,.7);
+  box-shadow:0 8px 32px rgba(196,154,60,.15);
 }
-.plan.hot:hover{box-shadow:0 24px 64px rgba(196,154,60,.18)}
+.plan.hot:hover{box-shadow:0 24px 64px rgba(196,154,60,.28)}
 .hot-lbl{
   position:absolute;top:-12px;left:50%;transform:translateX(-50%);
   background:var(--b);color:#fff;
@@ -470,14 +471,15 @@ nav.s{background:rgba(250,248,244,.96);backdrop-filter:blur(24px);-webkit-backdr
 .plan-ic svg{width:20px;height:20px;stroke:var(--b);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .plan-tier{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--t3);margin-bottom:3px}
 .plan-name{font-size:20px;font-weight:800;color:var(--w);margin-bottom:8px}
-.plan-desc{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:22px}
-.plan-price{padding-bottom:22px;border-bottom:1px solid var(--br);margin-bottom:22px}
+.plan-desc{font-size:13px;color:var(--t2);line-height:1.65;margin-bottom:18px}
+.plan-compare{font-size:11px;color:var(--t3);text-decoration:line-through;margin-bottom:4px}
+.plan-price{padding-bottom:18px;border-bottom:1px solid var(--br);margin-bottom:18px}
 .plan-from{font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
 .plan-val{display:flex;align-items:flex-start;gap:3px;font-weight:900;color:var(--w);line-height:1;letter-spacing:-1px}
 .plan-cur{font-size:16px;margin-top:5px;font-weight:500;color:var(--t2)}
 .plan-num{font-size:40px}
 .plan.hot .plan-val{color:var(--b)}
-.plan-ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+.plan-ul{list-style:none;display:flex;flex-direction:column;gap:6px;margin-bottom:18px}
 .plan-ul li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--t2);line-height:1.5}
 .plan-ul li strong{color:var(--w)}
 .ck{
@@ -1030,9 +1032,10 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         </div>
         <div class="plan-tier">Ideal para quem ainda não tem site</div>
         <div class="plan-name">Presença Digital</div>
-        <div class="plan-desc">Seu primeiro site profissional — transmite confiança e já gera contato.</div>
+        <div class="plan-desc">Seu primeiro site profissional que transmite confiança e já começa a gerar contatos.</div>
         <div class="plan-price">
-          <div class="plan-from">Investimento único</div>
+          <div class="plan-compare">Valor comum de mercado: R$ 1.200+</div>
+          <div class="plan-from">Investimento único • sem mensalidade</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">497</span></div>
         </div>
         <ul class="plan-ul">
@@ -1061,7 +1064,8 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         <div class="plan-name">Site que Converte</div>
         <div class="plan-desc">Quando o paciente chega no seu site, ele já sente que quer marcar uma consulta.</div>
         <div class="plan-price">
-          <div class="plan-from">Investimento único</div>
+          <div class="plan-compare">Valor comum de mercado: R$ 2.500+</div>
+          <div class="plan-from">Investimento único • sem mensalidade</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">997</span></div>
         </div>
         <ul class="plan-ul">
@@ -1089,7 +1093,8 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
         <div class="plan-name">Autoridade Digital</div>
         <div class="plan-desc">Sua clínica sendo vista como a melhor opção na sua especialidade e na sua cidade.</div>
         <div class="plan-price">
-          <div class="plan-from">Investimento único</div>
+          <div class="plan-compare">Valor comum de mercado: R$ 4.000+</div>
+          <div class="plan-from">Investimento único • sem mensalidade</div>
           <div class="plan-val"><span class="plan-cur">R$</span><span class="plan-num">1.997</span></div>
         </div>
         <ul class="plan-ul">
@@ -1109,8 +1114,15 @@ footer{background:var(--s2);border-top:1px solid var(--br);padding:52px 0 28px}
       </div>
 
     </div>
-    <div class="plans-guarantee rv">Risco zero — <strong>7 dias de garantia ou seu dinheiro de volta</strong></div>
-    <p class="plans-note rv"><span style="color:var(--b);font-weight:700;">Vagas limitadas a 10 projetos por mês.</span> Sem mensalidade · Parcelamos em até 12x</p>
+    <div class="plans-urgency rv">
+      <div class="plans-urgency-alert">
+        <span></span>
+        Apenas 3 vagas disponíveis essa semana
+      </div>
+      <p class="plans-note" style="margin-top:8px">Para manter a qualidade dos projetos, atendemos poucos clientes por vez.</p>
+    </div>
+    <div class="plans-guarantee rv">Você não corre risco — <strong>garantia de 7 dias ou seu dinheiro de volta</strong></div>
+    <p class="plans-note rv" style="margin-top:8px"><span style="color:var(--b);font-weight:700;">Parcelamos em até 12x.</span> Sem mensalidade · Entrega em até 48 horas</p>
   </div>
 </section>
 
