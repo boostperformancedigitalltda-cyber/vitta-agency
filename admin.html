@@ -240,23 +240,12 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
           Especialidade
           <input id="specialty" type="text" placeholder="Ex: dentistas, psicólogos, dermatologistas..."/>
         </label>
-        <label>
-          Filtro
-          <select id="filter-mode">
-            <option value="all">Todos</option>
-            <option value="no-site" selected>Sem site</option>
-            <option value="with-site">Com site</option>
-          </select>
-        </label>
         <button class="btn-search" id="btn-search" onclick="doSearch()">Buscar →</button>
       </div>
     </div>
 
-    <!-- FILTER BAR -->
+    <!-- STATS BAR -->
     <div class="filter-bar" id="filter-bar" style="display:none">
-      <button class="filter-btn active" onclick="applyFilter('all',this)">Todos (<span id="cnt-all">0</span>)</button>
-      <button class="filter-btn" onclick="applyFilter('no-site',this)">Sem site (<span id="cnt-no">0</span>)</button>
-      <button class="filter-btn" onclick="applyFilter('with-site',this)">Com site (<span id="cnt-yes">0</span>)</button>
       <div class="stats">Mostrando <strong id="cnt-show">0</strong> resultados</div>
     </div>
 
@@ -298,7 +287,6 @@ if (sessionStorage.getItem('va_auth') === '1') {
 // ── STATE ─────────────────────────────────────────────
 let allResults = [];
 let nextPageToken = null;
-let currentFilter = 'all';
 let isLoading = false;
 
 // ── SEARCH ────────────────────────────────────────────
@@ -309,7 +297,6 @@ async function doSearch() {
 
   allResults = [];
   nextPageToken = null;
-  currentFilter = 'all';
 
   setLoading(true);
   document.getElementById('filter-bar').style.display = 'none';
@@ -383,37 +370,20 @@ function scoreLabel(r) {
   return { cls: 'frio', txt: '❄️ Frio' };
 }
 
-// ── FILTER ────────────────────────────────────────────
-function applyFilter(f, btn) {
-  currentFilter = f;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderResults();
-}
-
-function getFiltered() {
-  if (currentFilter === 'no-site') return allResults.filter(r => !r.has_site);
-  if (currentFilter === 'with-site') return allResults.filter(r => r.has_site);
-  return allResults;
-}
-
 function updateStats() {
-  document.getElementById('cnt-all').textContent = allResults.length;
-  document.getElementById('cnt-no').textContent = allResults.filter(r => !r.has_site).length;
-  document.getElementById('cnt-yes').textContent = allResults.filter(r => r.has_site).length;
+  document.getElementById('cnt-show').textContent = allResults.length;
 }
 
 // ── RENDER ────────────────────────────────────────────
 function renderResults() {
-  const list = getFiltered();
-  document.getElementById('cnt-show').textContent = list.length;
+  document.getElementById('cnt-show').textContent = allResults.length;
 
-  if (!list.length) {
-    document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><strong>—</strong>Nenhum resultado para este filtro.</div>`;
+  if (!allResults.length) {
+    document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><strong>—</strong>Nenhum resultado encontrado.</div>`;
     return;
   }
 
-  const sorted = [...list].sort((a, b) => b.score - a.score);
+  const sorted = [...allResults].sort((a, b) => b.score - a.score);
   document.getElementById('results').innerHTML = sorted.map(r => cardHTML(r)).join('');
 }
 
