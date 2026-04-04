@@ -140,6 +140,9 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
 .card-phone{font-size:12px;color:rgba(240,237,230,.6)}
 .card-site{font-size:11px;color:rgba(240,237,230,.3);word-break:break-all}
 .card-site a{color:rgba(196,154,60,.6);text-decoration:none}
+.card-site a:hover{color:#C49A3C}
+.card-site{font-size:11px;color:rgba(240,237,230,.3);word-break:break-all}
+.card-site a{color:rgba(196,154,60,.6);text-decoration:none}
 
 .card-actions{margin-top:2px;display:flex;flex-direction:column;gap:8px}
 .btn-wa{
@@ -460,6 +463,7 @@ function cardHTML(r, enviado) {
       ${r.rating ? `<div class="card-rating"><span class="stars">${stars}</span><span class="rating-val">${r.rating}</span><span class="reviews">(${r.reviews} avaliações)</span></div>` : ''}
       ${r.address ? `<div class="card-addr">📍 ${esc(r.address)}</div>` : ''}
       ${r.phone ? `<div class="card-phone">📞 ${esc(r.phone)}</div>` : ''}
+      ${r.website ? `<div class="card-site">🌐 <a href="${esc(r.website)}" target="_blank" rel="noopener">${esc(r.website.replace(/^https?:\/\//,'').substring(0,40))}</a></div>` : ''}
     </div>
     <div class="card-actions">
       ${waLink
