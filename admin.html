@@ -122,6 +122,10 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
 }
 .badge.sem-site{background:rgba(196,154,60,.15);color:#C49A3C;border:1px solid rgba(196,154,60,.3)}
 .badge.tem-site{background:rgba(240,237,230,.06);color:rgba(240,237,230,.3);border:1px solid rgba(240,237,230,.08)}
+.badge.whatsapp{background:rgba(37,211,102,.12);color:#25D366;border:1px solid rgba(37,211,102,.3)}
+.badge.instagram{background:rgba(193,53,132,.12);color:#c13584;border:1px solid rgba(193,53,132,.3)}
+.badge.facebook{background:rgba(24,119,242,.12);color:#1877f2;border:1px solid rgba(24,119,242,.3)}
+.badge.linktree{background:rgba(98,214,111,.12);color:#39d353;border:1px solid rgba(98,214,111,.3)}
 
 .score-row{display:flex;align-items:center;gap:7px}
 .score-label{font-size:11px;font-weight:800;padding:3px 10px;border-radius:50px;white-space:nowrap}
@@ -396,7 +400,13 @@ async function fetchResults(city, specialty, pagetoken) {
 // ── SCORE ─────────────────────────────────────────────
 function calcScore(r) {
   let pts = 0;
-  if (!r.has_site) pts += 50;
+  // Sem site real = maior prioridade
+  if (!r.site_type) pts += 50;                          // sem nada
+  else if (r.site_type === 'whatsapp') pts += 45;       // só WA
+  else if (r.site_type === 'instagram') pts += 40;      // só IG
+  else if (r.site_type === 'facebook') pts += 38;       // só FB
+  else if (r.site_type === 'linktree') pts += 35;       // linktree
+  // site real = não pontua aqui
   if (r.rating >= 4.5) pts += 20;
   else if (r.rating >= 4.0) pts += 12;
   else if (r.rating >= 3.5) pts += 5;
@@ -439,6 +449,23 @@ function renderResults() {
   document.getElementById('results').innerHTML = sorted.map(r => cardHTML(r, !!enviados[r.place_id])).join('');
 }
 
+function badgeCls(t) {
+  if (!t) return 'sem-site';
+  if (t === 'whatsapp') return 'whatsapp';
+  if (t === 'instagram') return 'instagram';
+  if (t === 'facebook') return 'facebook';
+  if (t === 'linktree') return 'linktree';
+  return 'tem-site';
+}
+function badgeTxt(t) {
+  if (!t) return 'Sem site';
+  if (t === 'whatsapp') return '💬 WhatsApp';
+  if (t === 'instagram') return '📸 Instagram';
+  if (t === 'facebook') return '👥 Facebook';
+  if (t === 'linktree') return '🔗 Linktree';
+  return 'Tem site';
+}
+
 function cardHTML(r, enviado) {
   const stars = r.rating ? '★'.repeat(Math.round(r.rating)) + '☆'.repeat(5 - Math.round(r.rating)) : '';
   const waPhone = formatPhone(r.phone_intl || r.phone);
@@ -450,10 +477,10 @@ function cardHTML(r, enviado) {
   const pid = esc(r.place_id);
 
   return `
-  <div class="card ${r.has_site ? '' : 'no-site'} ${enviado ? 'enviado' : ''}" id="card-${pid}">
+  <div class="card ${r.site_type !== 'site' ? 'no-site' : ''} ${enviado ? 'enviado' : ''}" id="card-${pid}">
     <div class="card-head">
       <div class="card-name">${esc(r.name)}</div>
-      <span class="badge ${r.has_site ? 'tem-site' : 'sem-site'}">${r.has_site ? 'Tem site' : 'Sem site'}</span>
+      <span class="badge ${badgeCls(r.site_type)}">${badgeTxt(r.site_type)}</span>
     </div>
     <div class="score-row">
       <span class="score-label ${sl.cls}">${sl.txt}</span>

@@ -9,6 +9,16 @@ export default async function handler(req, res) {
   if (!key) return res.status(500).json({ error: 'API key não configurada no Vercel.' });
   if (!city || !specialty) return res.status(400).json({ error: 'Informe cidade e especialidade.' });
 
+  function detectSiteType(url) {
+    if (!url) return null;
+    const u = url.toLowerCase();
+    if (u.includes('wa.me') || u.includes('whatsapp.com')) return 'whatsapp';
+    if (u.includes('instagram.com')) return 'instagram';
+    if (u.includes('facebook.com') || u.includes('fb.com')) return 'facebook';
+    if (u.includes('linktr.ee')) return 'linktree';
+    return 'site';
+  }
+
   try {
     const body = {
       textQuery: `${specialty} em ${city}`,
@@ -35,17 +45,22 @@ export default async function handler(req, res) {
 
     const places = textData.places || [];
 
-    const results = places.map(p => ({
-      name: p.displayName?.text || '',
-      phone: p.nationalPhoneNumber || null,
-      phone_intl: p.internationalPhoneNumber || null,
-      website: p.websiteUri || null,
-      has_site: !!(p.websiteUri),
-      rating: p.rating ?? null,
-      reviews: p.userRatingCount ?? 0,
-      address: p.formattedAddress || '',
-      place_id: p.id,
-    }));
+    const results = places.map(p => {
+      const url = p.websiteUri || null;
+      const site_type = detectSiteType(url);
+      return {
+        name: p.displayName?.text || '',
+        phone: p.nationalPhoneNumber || null,
+        phone_intl: p.internationalPhoneNumber || null,
+        website: url,
+        site_type,
+        has_site: site_type === 'site',
+        rating: p.rating ?? null,
+        reviews: p.userRatingCount ?? 0,
+        address: p.formattedAddress || '',
+        place_id: p.id,
+      };
+    });
 
     return res.json({
       results,
