@@ -92,7 +92,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
 /* STATS */
 .stats-bar{
   display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:14px;padding:0 2px;
+  margin-bottom:14px;padding:0 2px;flex-wrap:wrap;gap:8px;
 }
 .stats-txt{font-size:12px;color:rgba(240,237,230,.35)}
 .stats-txt strong{color:#C49A3C}
@@ -106,8 +106,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
 .card{
   background:#1a1812;border:1px solid rgba(240,237,230,.07);
   border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;
+  transition:.3s;
 }
 .card.no-site{border-color:rgba(196,154,60,.3);background:linear-gradient(145deg,rgba(196,154,60,.05),#1a1812)}
+.card.enviado{
+  opacity:.4;border-color:rgba(240,237,230,.05)!important;
+  background:#141310!important;
+}
 
 .card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
 .card-name{font-size:14px;font-weight:700;color:#f0ede6;line-height:1.35;flex:1}
@@ -136,7 +141,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
 .card-site{font-size:11px;color:rgba(240,237,230,.3);word-break:break-all}
 .card-site a{color:rgba(196,154,60,.6);text-decoration:none}
 
-.card-actions{margin-top:2px}
+.card-actions{margin-top:2px;display:flex;flex-direction:column;gap:8px}
 .btn-wa{
   display:flex;align-items:center;justify-content:center;gap:8px;
   width:100%;padding:13px;border-radius:10px;
@@ -147,6 +152,20 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
 .btn-wa.active:active{background:#1da851}
 .btn-wa.disabled{background:rgba(240,237,230,.06);color:rgba(240,237,230,.2);cursor:not-allowed}
 .btn-wa svg{width:18px;height:18px;fill:currentColor;flex-shrink:0}
+
+.btn-enviado{
+  width:100%;padding:11px;border-radius:10px;
+  font-size:13px;font-weight:600;border:none;cursor:pointer;transition:.2s;
+}
+.btn-enviado.nao{
+  background:transparent;border:1px solid rgba(240,237,230,.1);
+  color:rgba(240,237,230,.35);
+}
+.btn-enviado.nao:active{border-color:rgba(240,237,230,.3);color:rgba(240,237,230,.6)}
+.btn-enviado.sim{
+  background:rgba(240,237,230,.06);border:1px solid rgba(240,237,230,.08);
+  color:rgba(240,237,230,.3);
+}
 
 /* EMPTY / LOADING */
 .empty{text-align:center;padding:60px 20px;color:rgba(240,237,230,.25);font-size:14px}
@@ -252,6 +271,7 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
     <!-- STATS -->
     <div class="stats-bar" id="stats-bar" style="display:none">
       <div class="stats-txt">Mostrando <strong id="cnt-show">0</strong> resultados</div>
+      <div class="stats-txt"><strong id="cnt-enviado">0</strong> mensagens enviadas</div>
     </div>
 
     <!-- RESULTS -->
@@ -287,6 +307,23 @@ function logout() {
 if (sessionStorage.getItem('va_auth') === '1') {
   document.getElementById('login').style.display = 'none';
   document.getElementById('admin').style.display = 'block';
+}
+
+// ── ENVIADOS (localStorage) ───────────────────────────
+function getEnviados() {
+  try { return JSON.parse(localStorage.getItem('va_enviados') || '{}'); } catch { return {}; }
+}
+function marcarEnviado(placeId) {
+  const e = getEnviados();
+  e[placeId] = Date.now();
+  localStorage.setItem('va_enviados', JSON.stringify(e));
+  renderResults();
+}
+function desmarcarEnviado(placeId) {
+  const e = getEnviados();
+  delete e[placeId];
+  localStorage.setItem('va_enviados', JSON.stringify(e));
+  renderResults();
 }
 
 // ── STATE ─────────────────────────────────────────────
@@ -369,25 +406,37 @@ function calcScore(r) {
 }
 
 function scoreLabel(r) {
-  if (!r.has_site && r.score >= 70) return { cls: 'quente', txt: '🔥 Quente' };
-  if (!r.has_site && r.score >= 50) return { cls: 'bom', txt: '⭐ Bom' };
+  if (r.score >= 70) return { cls: 'quente', txt: '🔥 Quente' };
+  if (r.score >= 54) return { cls: 'bom', txt: '⭐ Bom' };
   return { cls: 'frio', txt: '❄️ Frio' };
 }
 
 // ── RENDER ────────────────────────────────────────────
 function renderResults() {
-  document.getElementById('cnt-show').textContent = allResults.length;
+  const enviados = getEnviados();
+  const total = allResults.length;
+  const totalEnviado = allResults.filter(r => enviados[r.place_id]).length;
 
-  if (!allResults.length) {
-    document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><strong>—</strong>Nenhum resultado encontrado.</div>`;
+  document.getElementById('cnt-show').textContent = total;
+  document.getElementById('cnt-enviado').textContent = totalEnviado;
+
+  if (!total) {
+    document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><strong>—</strong>Nenhum resultado sem site encontrado.</div>`;
     return;
   }
 
-  const sorted = [...allResults].sort((a, b) => b.score - a.score);
-  document.getElementById('results').innerHTML = sorted.map(r => cardHTML(r)).join('');
+  // Ordenar: não enviados primeiro (por score), enviados por último
+  const sorted = [...allResults].sort((a, b) => {
+    const aEnv = !!enviados[a.place_id];
+    const bEnv = !!enviados[b.place_id];
+    if (aEnv !== bEnv) return aEnv ? 1 : -1;
+    return b.score - a.score;
+  });
+
+  document.getElementById('results').innerHTML = sorted.map(r => cardHTML(r, !!enviados[r.place_id])).join('');
 }
 
-function cardHTML(r) {
+function cardHTML(r, enviado) {
   const stars = r.rating ? '★'.repeat(Math.round(r.rating)) + '☆'.repeat(5 - Math.round(r.rating)) : '';
   const waPhone = formatPhone(r.phone_intl || r.phone);
   const msg = encodeURIComponent(
@@ -395,9 +444,10 @@ function cardHTML(r) {
   );
   const waLink = waPhone ? `https://wa.me/${waPhone}?text=${msg}` : null;
   const sl = scoreLabel(r);
+  const pid = esc(r.place_id);
 
   return `
-  <div class="card ${r.has_site ? '' : 'no-site'}">
+  <div class="card ${r.has_site ? '' : 'no-site'} ${enviado ? 'enviado' : ''}" id="card-${pid}">
     <div class="card-head">
       <div class="card-name">${esc(r.name)}</div>
       <span class="badge ${r.has_site ? 'tem-site' : 'sem-site'}">${r.has_site ? 'Tem site' : 'Sem site'}</span>
@@ -410,15 +460,18 @@ function cardHTML(r) {
       ${r.rating ? `<div class="card-rating"><span class="stars">${stars}</span><span class="rating-val">${r.rating}</span><span class="reviews">(${r.reviews} avaliações)</span></div>` : ''}
       ${r.address ? `<div class="card-addr">📍 ${esc(r.address)}</div>` : ''}
       ${r.phone ? `<div class="card-phone">📞 ${esc(r.phone)}</div>` : ''}
-      ${r.website ? `<div class="card-site">🌐 <a href="${esc(r.website)}" target="_blank" rel="noopener">${esc(r.website.replace(/^https?:\/\//,'').substring(0,38))}</a></div>` : ''}
     </div>
     <div class="card-actions">
       ${waLink
-        ? `<a href="${waLink}" target="_blank" rel="noopener" class="btn-wa active">
+        ? `<a href="${waLink}" target="_blank" rel="noopener" class="btn-wa active" onclick="marcarEnviado('${pid}')">
             <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.975 0C5.373 0 0 5.373 0 11.975c0 2.11.555 4.09 1.523 5.815L.057 24l6.347-1.664A11.93 11.93 0 0011.975 24C18.578 24 24 18.627 24 12.025 24 5.373 18.578 0 11.975 0zm0 21.818a9.84 9.84 0 01-5.017-1.378l-.36-.213-3.765.987 1.004-3.662-.234-.374a9.843 9.843 0 01-1.506-5.203c0-5.442 4.43-9.87 9.878-9.87 5.441 0 9.87 4.428 9.87 9.87 0 5.44-4.429 9.843-9.87 9.843z"/></svg>
             WhatsApp
            </a>`
         : `<button class="btn-wa disabled" disabled>Sem telefone</button>`
+      }
+      ${enviado
+        ? `<button class="btn-enviado sim" onclick="desmarcarEnviado('${pid}')">✓ Mensagem enviada — desfazer</button>`
+        : `<button class="btn-enviado nao" onclick="marcarEnviado('${pid}')">Marcar como enviado</button>`
       }
     </div>
   </div>`;
