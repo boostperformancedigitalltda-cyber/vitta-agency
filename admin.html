@@ -110,6 +110,13 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
 .badge.sem-site{background:rgba(196,154,60,.15);color:#C49A3C;border:1px solid rgba(196,154,60,.3)}
 .badge.tem-site{background:rgba(240,237,230,.06);color:rgba(240,237,230,.35);border:1px solid rgba(240,237,230,.08)}
 
+.score-bar{display:flex;align-items:center;gap:8px;margin-top:2px}
+.score-label{font-size:11px;font-weight:800;padding:3px 10px;border-radius:50px;white-space:nowrap}
+.score-label.quente{background:rgba(255,80,50,.15);color:#ff6b4a;border:1px solid rgba(255,80,50,.3)}
+.score-label.bom{background:rgba(196,154,60,.12);color:#C49A3C;border:1px solid rgba(196,154,60,.25)}
+.score-label.frio{background:rgba(240,237,230,.05);color:rgba(240,237,230,.25);border:1px solid rgba(240,237,230,.07)}
+.score-pts{font-size:10px;color:rgba(240,237,230,.25)}
+
 .card-rating{display:flex;align-items:center;gap:6px;font-size:12px}
 .stars{color:#C49A3C;letter-spacing:1px;font-size:11px}
 .rating-val{font-weight:700;color:#f0ede6}
@@ -339,7 +346,8 @@ async function fetchResults(city, specialty, pagetoken) {
       return;
     }
 
-    allResults = [...allResults, ...(data.results || [])];
+    const scored = (data.results || []).map(r => ({ ...r, score: calcScore(r) }));
+    allResults = [...allResults, ...scored];
     nextPageToken = data.next_page_token || null;
 
     renderResults();
@@ -352,6 +360,27 @@ async function fetchResults(city, specialty, pagetoken) {
     document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><strong>:(</strong>Erro de conexão. Verifique o painel do Vercel.</div>`;
   }
   isLoading = false;
+}
+
+// ── SCORE ─────────────────────────────────────────────
+function calcScore(r) {
+  let pts = 0;
+  if (!r.has_site) pts += 50;
+  if (r.rating >= 4.5) pts += 20;
+  else if (r.rating >= 4.0) pts += 12;
+  else if (r.rating >= 3.5) pts += 5;
+  if (r.reviews >= 200) pts += 20;
+  else if (r.reviews >= 100) pts += 14;
+  else if (r.reviews >= 50) pts += 8;
+  else if (r.reviews >= 20) pts += 4;
+  if (r.phone) pts += 10;
+  return pts;
+}
+
+function scoreLabel(r) {
+  if (!r.has_site && r.score >= 70) return { cls: 'quente', txt: '🔥 Quente' };
+  if (!r.has_site && r.score >= 50) return { cls: 'bom', txt: '⭐ Bom' };
+  return { cls: 'frio', txt: '❄️ Frio' };
 }
 
 // ── FILTER ────────────────────────────────────────────
@@ -384,7 +413,8 @@ function renderResults() {
     return;
   }
 
-  document.getElementById('results').innerHTML = list.map(r => cardHTML(r)).join('');
+  const sorted = [...list].sort((a, b) => b.score - a.score);
+  document.getElementById('results').innerHTML = sorted.map(r => cardHTML(r)).join('');
 }
 
 function cardHTML(r) {
@@ -396,11 +426,16 @@ function cardHTML(r) {
   );
   const waLink = waPhone ? `https://wa.me/${waPhone}?text=${msg}` : null;
 
+  const sl = scoreLabel(r);
   return `
   <div class="card ${r.has_site ? '' : 'no-site'}">
     <div class="card-head">
       <div class="card-name">${esc(r.name)}</div>
       <span class="badge ${r.has_site ? 'tem-site' : 'sem-site'}">${r.has_site ? 'Tem site' : 'Sem site'}</span>
+    </div>
+    <div class="score-bar">
+      <span class="score-label ${sl.cls}">${sl.txt}</span>
+      <span class="score-pts">${r.score} pts</span>
     </div>
     ${r.rating ? `
     <div class="card-rating">
