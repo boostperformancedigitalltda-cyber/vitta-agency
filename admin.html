@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Vitta Admin — Prospecção</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;min-height:100vh;-webkit-font-smoothing:antialiased}
+
+/* LOGIN */
+#login{
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;padding:24px;
+}
+.login-box{
+  background:#1a1812;border:1px solid rgba(196,154,60,.2);
+  border-radius:20px;padding:40px 32px;width:100%;max-width:380px;
+  text-align:center;
+}
+.login-logo{font-size:22px;font-weight:900;color:#C49A3C;letter-spacing:-1px;margin-bottom:8px}
+.login-sub{font-size:13px;color:rgba(240,237,230,.4);margin-bottom:32px}
+.login-box input{
+  width:100%;background:#0f0e0c;border:1px solid rgba(240,237,230,.1);
+  border-radius:10px;padding:13px 16px;color:#f0ede6;font-size:14px;
+  outline:none;transition:.2s;margin-bottom:12px;
+}
+.login-box input:focus{border-color:rgba(196,154,60,.5)}
+.login-box button{
+  width:100%;background:#C49A3C;color:#fff;border:none;
+  border-radius:10px;padding:14px;font-size:14px;font-weight:700;
+  cursor:pointer;transition:.2s;
+}
+.login-box button:hover{background:#A8832E}
+.login-err{font-size:12px;color:#e87878;margin-top:10px;display:none}
+
+/* ADMIN */
+#admin{display:none}
+.topbar{
+  background:#1a1812;border-bottom:1px solid rgba(240,237,230,.07);
+  padding:0 24px;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:100;
+}
+.tb-logo{font-size:16px;font-weight:900;color:#C49A3C;letter-spacing:-.5px}
+.tb-logout{font-size:12px;color:rgba(240,237,230,.35);cursor:pointer;transition:.2s;border:none;background:none;padding:6px 10px;border-radius:6px}
+.tb-logout:hover{color:#e87878;background:rgba(232,120,120,.08)}
+
+.main{max-width:1200px;margin:0 auto;padding:28px 20px}
+
+/* SEARCH PANEL */
+.search-panel{
+  background:#1a1812;border:1px solid rgba(196,154,60,.18);
+  border-radius:16px;padding:24px;margin-bottom:24px;
+}
+.sp-title{font-size:13px;font-weight:700;color:#C49A3C;text-transform:uppercase;letter-spacing:.8px;margin-bottom:18px}
+.sp-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(min-width:640px){.sp-row{grid-template-columns:1fr 1fr 1fr auto}}
+.sp-row label{display:flex;flex-direction:column;gap:6px;font-size:11px;color:rgba(240,237,230,.4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.sp-row input,.sp-row select{
+  background:#0f0e0c;border:1px solid rgba(240,237,230,.1);
+  border-radius:8px;padding:10px 12px;color:#f0ede6;font-size:13px;
+  outline:none;transition:.2s;
+}
+.sp-row input:focus,.sp-row select:focus{border-color:rgba(196,154,60,.5)}
+.sp-row select option{background:#1a1812}
+.btn-search{
+  background:#C49A3C;color:#fff;border:none;
+  border-radius:8px;padding:10px 22px;font-size:13px;font-weight:700;
+  cursor:pointer;transition:.2s;white-space:nowrap;align-self:flex-end;height:40px;
+}
+.btn-search:hover{background:#A8832E}
+.btn-search:disabled{opacity:.5;cursor:not-allowed}
+
+/* FILTER BAR */
+.filter-bar{
+  display:flex;align-items:center;gap:10px;margin-bottom:20px;flex-wrap:wrap;
+}
+.filter-btn{
+  padding:7px 16px;border-radius:50px;font-size:12px;font-weight:600;
+  border:1px solid rgba(240,237,230,.12);background:transparent;
+  color:rgba(240,237,230,.5);cursor:pointer;transition:.2s;
+}
+.filter-btn.active{background:#C49A3C;border-color:#C49A3C;color:#fff}
+.filter-btn:hover:not(.active){border-color:rgba(196,154,60,.4);color:#C49A3C}
+.stats{margin-left:auto;font-size:12px;color:rgba(240,237,230,.35)}
+.stats strong{color:#C49A3C}
+
+/* RESULTS */
+.results-grid{
+  display:grid;grid-template-columns:1fr;gap:12px;
+}
+@media(min-width:600px){.results-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:960px){.results-grid{grid-template-columns:1fr 1fr 1fr}}
+
+.card{
+  background:#1a1812;border:1px solid rgba(240,237,230,.07);
+  border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:12px;
+  transition:.2s;
+}
+.card:hover{border-color:rgba(196,154,60,.2)}
+.card.no-site{border-color:rgba(196,154,60,.35);background:linear-gradient(145deg,rgba(196,154,60,.06),#1a1812)}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+.card-name{font-size:14px;font-weight:700;color:#f0ede6;line-height:1.3;flex:1}
+.badge{
+  font-size:9px;font-weight:800;padding:3px 8px;border-radius:50px;
+  white-space:nowrap;flex-shrink:0;text-transform:uppercase;letter-spacing:.5px;
+}
+.badge.sem-site{background:rgba(196,154,60,.15);color:#C49A3C;border:1px solid rgba(196,154,60,.3)}
+.badge.tem-site{background:rgba(240,237,230,.06);color:rgba(240,237,230,.35);border:1px solid rgba(240,237,230,.08)}
+
+.card-rating{display:flex;align-items:center;gap:6px;font-size:12px}
+.stars{color:#C49A3C;letter-spacing:1px;font-size:11px}
+.rating-val{font-weight:700;color:#f0ede6}
+.reviews{color:rgba(240,237,230,.35)}
+
+.card-addr{font-size:11px;color:rgba(240,237,230,.4);line-height:1.5}
+.card-phone{font-size:12px;color:rgba(240,237,230,.6);display:flex;align-items:center;gap:6px}
+.card-site{font-size:11px;color:rgba(240,237,230,.3);word-break:break-all}
+.card-site a{color:rgba(196,154,60,.6);text-decoration:none}
+.card-site a:hover{color:#C49A3C}
+
+.card-actions{margin-top:auto}
+.btn-wa{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;padding:11px;border-radius:8px;
+  font-size:13px;font-weight:700;text-decoration:none;
+  transition:.2s;border:none;cursor:pointer;
+}
+.btn-wa.active{background:#25D366;color:#fff}
+.btn-wa.active:hover{background:#1da851}
+.btn-wa.disabled{background:rgba(240,237,230,.06);color:rgba(240,237,230,.25);cursor:not-allowed}
+.btn-wa svg{width:16px;height:16px;fill:currentColor;flex-shrink:0}
+
+/* EMPTY / LOADING */
+.empty{
+  text-align:center;padding:60px 20px;
+  color:rgba(240,237,230,.25);font-size:14px;
+}
+.empty strong{display:block;font-size:24px;margin-bottom:8px;color:rgba(240,237,230,.1)}
+.spinner{
+  width:36px;height:36px;border:3px solid rgba(196,154,60,.15);
+  border-top-color:#C49A3C;border-radius:50%;
+  animation:spin .8s linear infinite;margin:0 auto 12px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* PAGINATION */
+.pagination{display:flex;justify-content:center;margin-top:24px}
+.btn-more{
+  background:transparent;border:1px solid rgba(196,154,60,.3);
+  color:#C49A3C;border-radius:8px;padding:10px 28px;
+  font-size:13px;font-weight:600;cursor:pointer;transition:.2s;
+}
+.btn-more:hover{background:rgba(196,154,60,.1)}
+.btn-more:disabled{opacity:.4;cursor:not-allowed}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-box">
+    <div class="login-logo">Vitta Agency</div>
+    <div class="login-sub">Painel de Prospecção</div>
+    <input type="password" id="pwd" placeholder="Senha de acesso" onkeydown="if(event.key==='Enter')doLogin()"/>
+    <button onclick="doLogin()">Entrar</button>
+    <div class="login-err" id="login-err">Senha incorreta.</div>
+  </div>
+</div>
+
+<!-- ADMIN -->
+<div id="admin">
+  <div class="topbar">
+    <span class="tb-logo">Vitta · Prospecção</span>
+    <button class="tb-logout" onclick="logout()">Sair</button>
+  </div>
+
+  <div class="main">
+
+    <!-- SEARCH -->
+    <div class="search-panel">
+      <div class="sp-title">Buscar negócios</div>
+      <div class="sp-row">
+        <label>
+          Cidade
+          <input id="city" type="text" placeholder="Ex: São Paulo, Rio de Janeiro"/>
+        </label>
+        <label>
+          Especialidade
+          <select id="specialty">
+            <option value="médico">Médicos</option>
+            <option value="dentista" selected>Dentistas</option>
+            <option value="biomédico">Biomédicos</option>
+            <option value="clínica estética">Clínicas Estéticas</option>
+            <option value="dermatologista">Dermatologistas</option>
+            <option value="oftalmologista">Oftalmologistas</option>
+            <option value="ortopedista">Ortopedistas</option>
+            <option value="nutricionista">Nutricionistas</option>
+            <option value="fisioterapeuta">Fisioterapeutas</option>
+            <option value="psicólogo">Psicólogos</option>
+          </select>
+        </label>
+        <label>
+          Filtro
+          <select id="filter-mode">
+            <option value="all">Todos</option>
+            <option value="no-site" selected>Sem site</option>
+            <option value="with-site">Com site</option>
+          </select>
+        </label>
+        <button class="btn-search" id="btn-search" onclick="doSearch()">Buscar →</button>
+      </div>
+    </div>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar" id="filter-bar" style="display:none">
+      <button class="filter-btn active" onclick="applyFilter('all',this)">Todos (<span id="cnt-all">0</span>)</button>
+      <button class="filter-btn" onclick="applyFilter('no-site',this)">Sem site (<span id="cnt-no">0</span>)</button>
+      <button class="filter-btn" onclick="applyFilter('with-site',this)">Com site (<span id="cnt-yes">0</span>)</button>
+      <div class="stats">Mostrando <strong id="cnt-show">0</strong> resultados</div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-grid" id="results"></div>
+
+    <!-- PAGINATION -->
+    <div class="pagination" id="pagination" style="display:none">
+      <button class="btn-more" id="btn-more" onclick="loadMore()">Carregar mais resultados</button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── AUTH ──────────────────────────────────────────────
+const PASS = 'vitta@2025';
+
+function doLogin() {
+  const v = document.getElementById('pwd').value;
+  if (v === PASS) {
+    sessionStorage.setItem('va_auth', '1');
+    document.getElementById('login').style.display = 'none';
+    document.getElementById('admin').style.display = 'block';
+    document.getElementById('login-err').style.display = 'none';
+  } else {
+    document.getElementById('login-err').style.display = 'block';
+  }
+}
+function logout() {
+  sessionStorage.removeItem('va_auth');
+  location.reload();
+}
+if (sessionStorage.getItem('va_auth') === '1') {
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('admin').style.display = 'block';
+}
+
+// ── STATE ─────────────────────────────────────────────
+let allResults = [];
+let nextPageToken = null;
+let currentFilter = 'all';
+let isLoading = false;
+
+// ── SEARCH ────────────────────────────────────────────
+async function doSearch() {
+  const city = document.getElementById('city').value.trim();
+  const specialty = document.getElementById('specialty').value;
+  if (!city) { alert('Informe a cidade.'); return; }
+
+  allResults = [];
+  nextPageToken = null;
+  currentFilter = 'all';
+
+  setLoading(true);
+  document.getElementById('filter-bar').style.display = 'none';
+  document.getElementById('pagination').style.display = 'none';
+  document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><div class="spinner"></div>Buscando ${specialty}s em ${city}...</div>`;
+
+  await fetchResults(city, specialty, null);
+  setLoading(false);
+}
+
+async function loadMore() {
+  if (!nextPageToken || isLoading) return;
+  const city = document.getElementById('city').value.trim();
+  const specialty = document.getElementById('specialty').value;
+  document.getElementById('btn-more').disabled = true;
+  document.getElementById('btn-more').textContent = 'Carregando...';
+  await fetchResults(city, specialty, nextPageToken);
+  document.getElementById('btn-more').disabled = false;
+  document.getElementById('btn-more').textContent = 'Carregar mais resultados';
+}
+
+async function fetchResults(city, specialty, pagetoken) {
+  isLoading = true;
+  try {
+    let url = `/api/search?city=${encodeURIComponent(city)}&specialty=${encodeURIComponent(specialty)}`;
+    if (pagetoken) url += `&pagetoken=${encodeURIComponent(pagetoken)}`;
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (data.error) {
+      document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><strong>:(</strong>Erro: ${data.error}<br>${data.message || ''}</div>`;
+      isLoading = false;
+      return;
+    }
+
+    allResults = [...allResults, ...(data.results || [])];
+    nextPageToken = data.next_page_token || null;
+
+    renderResults();
+    updateStats();
+
+    document.getElementById('filter-bar').style.display = 'flex';
+    document.getElementById('pagination').style.display = nextPageToken ? 'flex' : 'none';
+
+  } catch (e) {
+    document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><strong>:(</strong>Erro de conexão. Verifique o painel do Vercel.</div>`;
+  }
+  isLoading = false;
+}
+
+// ── FILTER ────────────────────────────────────────────
+function applyFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderResults();
+}
+
+function getFiltered() {
+  if (currentFilter === 'no-site') return allResults.filter(r => !r.has_site);
+  if (currentFilter === 'with-site') return allResults.filter(r => r.has_site);
+  return allResults;
+}
+
+function updateStats() {
+  document.getElementById('cnt-all').textContent = allResults.length;
+  document.getElementById('cnt-no').textContent = allResults.filter(r => !r.has_site).length;
+  document.getElementById('cnt-yes').textContent = allResults.filter(r => r.has_site).length;
+}
+
+// ── RENDER ────────────────────────────────────────────
+function renderResults() {
+  const list = getFiltered();
+  document.getElementById('cnt-show').textContent = list.length;
+
+  if (!list.length) {
+    document.getElementById('results').innerHTML = `<div class="empty" style="grid-column:1/-1"><strong>—</strong>Nenhum resultado para este filtro.</div>`;
+    return;
+  }
+
+  document.getElementById('results').innerHTML = list.map(r => cardHTML(r)).join('');
+}
+
+function cardHTML(r) {
+  const stars = r.rating ? '★'.repeat(Math.round(r.rating)) + '☆'.repeat(5 - Math.round(r.rating)) : '';
+  const waPhone = formatPhone(r.phone_intl || r.phone);
+  const specialty = document.getElementById('specialty').options[document.getElementById('specialty').selectedIndex].text;
+  const msg = encodeURIComponent(
+    `Olá, ${r.name}! 👋\n\nVi que vocês ainda não têm um site profissional.\n\nNa Vitta Agency criamos sites para ${specialty.toLowerCase()} em até 48 horas, com foco em atrair mais pacientes e transmitir credibilidade desde o primeiro acesso.\n\nPosso te mostrar alguns exemplos do nosso trabalho? 😊`
+  );
+  const waLink = waPhone ? `https://wa.me/${waPhone}?text=${msg}` : null;
+
+  return `
+  <div class="card ${r.has_site ? '' : 'no-site'}">
+    <div class="card-head">
+      <div class="card-name">${esc(r.name)}</div>
+      <span class="badge ${r.has_site ? 'tem-site' : 'sem-site'}">${r.has_site ? 'Tem site' : 'Sem site'}</span>
+    </div>
+    ${r.rating ? `
+    <div class="card-rating">
+      <span class="stars">${stars}</span>
+      <span class="rating-val">${r.rating}</span>
+      <span class="reviews">(${r.reviews} avaliações)</span>
+    </div>` : ''}
+    ${r.address ? `<div class="card-addr">📍 ${esc(r.address)}</div>` : ''}
+    ${r.phone ? `<div class="card-phone">📞 ${esc(r.phone)}</div>` : ''}
+    ${r.website ? `<div class="card-site">🌐 <a href="${esc(r.website)}" target="_blank" rel="noopener">${esc(r.website.replace(/^https?:\/\//, '').substring(0,40))}</a></div>` : ''}
+    <div class="card-actions">
+      ${waLink
+        ? `<a href="${waLink}" target="_blank" rel="noopener" class="btn-wa active">
+            <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M11.975 0C5.373 0 0 5.373 0 11.975c0 2.11.555 4.09 1.523 5.815L.057 24l6.347-1.664A11.93 11.93 0 0011.975 24C18.578 24 24 18.627 24 12.025 24 5.373 18.578 0 11.975 0zm0 21.818a9.84 9.84 0 01-5.017-1.378l-.36-.213-3.765.987 1.004-3.662-.234-.374a9.843 9.843 0 01-1.506-5.203c0-5.442 4.43-9.87 9.878-9.87 5.441 0 9.87 4.428 9.87 9.87 0 5.44-4.429 9.843-9.87 9.843z"/></svg>
+            Abrir conversa no WhatsApp
+           </a>`
+        : `<button class="btn-wa disabled" disabled>Sem telefone cadastrado</button>`
+      }
+    </div>
+  </div>`;
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatPhone(phone) {
+  if (!phone) return null;
+  const digits = phone.replace(/\D/g, '');
+  if (digits.startsWith('55') && digits.length >= 12) return digits;
+  if (digits.length >= 10) return '55' + digits;
+  return null;
+}
+
+function setLoading(v) {
+  document.getElementById('btn-search').disabled = v;
+  document.getElementById('btn-search').textContent = v ? 'Buscando...' : 'Buscar →';
+}
+</script>
+</body>
+</html>
