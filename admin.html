@@ -422,7 +422,7 @@ function cardHTML(r) {
   const waPhone = formatPhone(r.phone_intl || r.phone);
   const specialty = document.getElementById('specialty').value;
   const msg = encodeURIComponent(
-    `Olá, ${r.name}! 👋\n\nVi que vocês ainda não têm um site profissional.\n\nNa Vitta Agency criamos sites para ${specialty.toLowerCase()} em até 48 horas, com foco em atrair mais pacientes e transmitir credibilidade desde o primeiro acesso.\n\nPosso te mostrar alguns exemplos do nosso trabalho? 😊`
+    `Olá, tudo bem?\n\nEstava pesquisando clínicas aqui na região e encontrei a sua no Google.\n\nVi que você já tem uma boa presença, mas pode estar deixando de converter muitos pacientes — principalmente pela ausência de um site profissional (ou pelo site atual não estar gerando tantos contatos quanto poderia).\n\nHoje, a maioria dos pacientes pesquisa e escolhe direto no Google… e acaba indo pra quem transmite mais confiança online.\n\nSe fizer sentido, posso te mostrar rapidamente como melhorar isso na prática.\n\nPosso te mandar um exemplo?`
   );
   const waLink = waPhone ? `https://wa.me/${waPhone}?text=${msg}` : null;
 
