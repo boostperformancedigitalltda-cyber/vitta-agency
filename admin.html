@@ -185,22 +185,53 @@ body{font-family:'Inter',system-ui,sans-serif;background:#0f0e0c;color:#f0ede6;m
       <div class="sp-row">
         <label>
           Cidade
-          <input id="city" type="text" placeholder="Ex: São Paulo, Rio de Janeiro"/>
+          <select id="city">
+            <option value="">Selecione a cidade</option>
+            <option value="São Paulo">São Paulo - SP</option>
+            <option value="Rio de Janeiro">Rio de Janeiro - RJ</option>
+            <option value="Belo Horizonte">Belo Horizonte - MG</option>
+            <option value="Curitiba">Curitiba - PR</option>
+            <option value="Porto Alegre">Porto Alegre - RS</option>
+            <option value="Salvador">Salvador - BA</option>
+            <option value="Fortaleza">Fortaleza - CE</option>
+            <option value="Recife">Recife - PE</option>
+            <option value="Manaus">Manaus - AM</option>
+            <option value="Brasília">Brasília - DF</option>
+            <option value="Goiânia">Goiânia - GO</option>
+            <option value="Florianópolis">Florianópolis - SC</option>
+            <option value="Campinas">Campinas - SP</option>
+            <option value="Ribeirão Preto">Ribeirão Preto - SP</option>
+            <option value="São Bernardo do Campo">São Bernardo do Campo - SP</option>
+            <option value="Santo André">Santo André - SP</option>
+            <option value="Osasco">Osasco - SP</option>
+            <option value="Santos">Santos - SP</option>
+            <option value="Sorocaba">Sorocaba - SP</option>
+            <option value="Maceió">Maceió - AL</option>
+            <option value="Natal">Natal - RN</option>
+            <option value="Teresina">Teresina - PI</option>
+            <option value="Campo Grande">Campo Grande - MS</option>
+            <option value="Cuiabá">Cuiabá - MT</option>
+            <option value="João Pessoa">João Pessoa - PB</option>
+            <option value="Aracaju">Aracaju - SE</option>
+            <option value="Porto Velho">Porto Velho - RO</option>
+            <option value="Macapá">Macapá - AP</option>
+            <option value="Boa Vista">Boa Vista - RR</option>
+            <option value="Palmas">Palmas - TO</option>
+            <option value="Rio Branco">Rio Branco - AC</option>
+            <option value="São Luís">São Luís - MA</option>
+            <option value="Belém">Belém - PA</option>
+            <option value="Vitória">Vitória - ES</option>
+            <option value="Londrina">Londrina - PR</option>
+            <option value="Maringá">Maringá - PR</option>
+            <option value="Joinville">Joinville - SC</option>
+            <option value="Uberlândia">Uberlândia - MG</option>
+            <option value="Contagem">Contagem - MG</option>
+            <option value="Juiz de Fora">Juiz de Fora - MG</option>
+          </select>
         </label>
         <label>
           Especialidade
-          <select id="specialty">
-            <option value="médico">Médicos</option>
-            <option value="dentista" selected>Dentistas</option>
-            <option value="biomédico">Biomédicos</option>
-            <option value="clínica estética">Clínicas Estéticas</option>
-            <option value="dermatologista">Dermatologistas</option>
-            <option value="oftalmologista">Oftalmologistas</option>
-            <option value="ortopedista">Ortopedistas</option>
-            <option value="nutricionista">Nutricionistas</option>
-            <option value="fisioterapeuta">Fisioterapeutas</option>
-            <option value="psicólogo">Psicólogos</option>
-          </select>
+          <input id="specialty" type="text" placeholder="Ex: dentistas, psicólogos, dermatologistas..."/>
         </label>
         <label>
           Filtro
@@ -359,7 +390,7 @@ function renderResults() {
 function cardHTML(r) {
   const stars = r.rating ? '★'.repeat(Math.round(r.rating)) + '☆'.repeat(5 - Math.round(r.rating)) : '';
   const waPhone = formatPhone(r.phone_intl || r.phone);
-  const specialty = document.getElementById('specialty').options[document.getElementById('specialty').selectedIndex].text;
+  const specialty = document.getElementById('specialty').value;
   const msg = encodeURIComponent(
     `Olá, ${r.name}! 👋\n\nVi que vocês ainda não têm um site profissional.\n\nNa Vitta Agency criamos sites para ${specialty.toLowerCase()} em até 48 horas, com foco em atrair mais pacientes e transmitir credibilidade desde o primeiro acesso.\n\nPosso te mostrar alguns exemplos do nosso trabalho? 😊`
   );
